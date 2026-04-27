@@ -803,20 +803,20 @@ Documentaire. Court-Métrage.</p>
 <p class="prest-intro" data-k="prest_i2">Si vous êtes un professionnel de la production et que vous souhaitez faire partie de notre réseau, déposez votre profil.</p>
 <div class="prest-tags" id="prest-tags"></div>
 </div>
-<div class="g-form">
+<form accept-charset="UTF-8" action="https://formspree.io/f/xaqagnyw" class="g-form" id="prestataire-form" method="POST"><input id="pr-formats-hidden" name="formats" type="hidden"/><input name="_subject" type="hidden" value="Nouveau prestataire — Spring Vision Studio"/><input name="_captcha" type="hidden" value="false"/><input name="source" type="hidden" value="prestataire"/>
 <div class="g-row">
-<div class="g-grp"><label class="g-lbl" data-k="pr_fn">Prénom *</label><input class="g-in" data-k-ph="ph_fn" id="pr-prenom" type="text"/></div>
-<div class="g-grp"><label class="g-lbl" data-k="pr_ln">Nom *</label><input class="g-in" data-k-ph="ph_ln" id="pr-nom" type="text"/></div>
+<div class="g-grp"><label class="g-lbl" data-k="pr_fn">Prénom *</label><input class="g-in" data-k-ph="ph_fn" id="pr-prenom" name="prenom" type="text"/></div>
+<div class="g-grp"><label class="g-lbl" data-k="pr_ln">Nom *</label><input class="g-in" data-k-ph="ph_ln" id="pr-nom" name="nom" type="text"/></div>
 </div>
-<div class="g-grp"><label class="g-lbl" data-k="pr_em">Email *</label><input class="g-in" data-k-ph="ph_em" id="pr-email" type="email"/></div>
-<div class="g-grp"><label class="g-lbl" data-k="pr_role">Métier principal *</label><select class="g-sel" id="pr-role"></select></div>
-<div class="g-grp"><label class="g-lbl" data-k="pr_exp">Expérience</label><select class="g-sel" id="pr-exp"></select></div>
+<div class="g-grp"><label class="g-lbl" data-k="pr_em">Email *</label><input class="g-in" data-k-ph="ph_em" id="pr-email" name="email" type="email"/></div>
+<div class="g-grp"><label class="g-lbl" data-k="pr_role">Métier principal *</label><select class="g-sel" id="pr-role" name="metier"></select></div>
+<div class="g-grp"><label class="g-lbl" data-k="pr_exp">Expérience</label><select class="g-sel" id="pr-exp" name="experience"></select></div>
 <div class="g-grp"><label class="g-lbl" data-k="pr_fmts">Formats maîtrisés</label><div class="g-rg" id="pr-fmts"></div></div>
-<div class="g-grp"><label class="g-lbl" data-k="pr_link">Portfolio / IMDb / Vimeo</label><input class="g-in" id="pr-link" placeholder="https://…" type="url"/></div>
-<div class="g-grp"><label class="g-lbl" data-k="pr_msg">En quelques mots</label><textarea class="g-in" data-k-ph="ph_msg" id="pr-msg" rows="3" style="resize:vertical;min-height:70px;line-height:1.65"></textarea></div>
-<button class="g-btn" id="pr-sub" type="button"><span class="g-lbl2" data-k="pr_btn">Déposer mon profil ↗</span></button>
+<div class="g-grp"><label class="g-lbl" data-k="pr_link">Portfolio / IMDb / Vimeo</label><input class="g-in" id="pr-link" name="portfolio" placeholder="https://…" type="url"/></div>
+<div class="g-grp"><label class="g-lbl" data-k="pr_msg">En quelques mots</label><textarea class="g-in" data-k-ph="ph_msg" id="pr-msg" name="message" rows="3" style="resize:vertical;min-height:70px;line-height:1.65"></textarea></div>
+<button class="g-btn" id="pr-sub" type="submit"><span class="g-lbl2" data-k="pr_btn">Déposer mon profil ↗</span></button>
 <p class="g-err" id="pr-err"></p>
-</div>
+</form>
 </div>
 </div>
 </div><!-- /ot-panels -->
@@ -866,17 +866,17 @@ Documentaire. Court-Métrage.</p>
 </div>
 </div>
 <div class="rv d2">
-<div class="ct-f">
+<form accept-charset="UTF-8" action="https://formspree.io/f/xaqagnyw" class="ct-f" id="contact-form" method="POST"><input name="_subject" type="hidden" value="Nouveau brief — Spring Vision Studio"/><input name="_captcha" type="hidden" value="false"/><input name="source" type="hidden" value="contact"/>
 <div class="cf-r">
-<div class="cf-g"><label class="cf-l" data-k="cf_fn">Prénom *</label><input class="cf-i" data-k-ph="ph_fn" id="c-prenom" required="" type="text"/></div>
-<div class="cf-g"><label class="cf-l" data-k="cf_ln">Nom *</label><input class="cf-i" data-k-ph="ph_ln" id="c-nom" required="" type="text"/></div>
+<div class="cf-g"><label class="cf-l" data-k="cf_fn">Prénom *</label><input class="cf-i" data-k-ph="ph_fn" id="c-prenom" name="prenom" required="" type="text"/></div>
+<div class="cf-g"><label class="cf-l" data-k="cf_ln">Nom *</label><input class="cf-i" data-k-ph="ph_ln" id="c-nom" name="nom" required="" type="text"/></div>
 </div>
-<div class="cf-g"><label class="cf-l" data-k="cf_em">Email *</label><input class="cf-i" data-k-ph="ph_em" id="c-email" required="" type="email"/></div>
-<div class="cf-g"><label class="cf-l" data-k="cf_soc">Société / Structure</label><input class="cf-i" data-k-ph="cf_soc_ph" id="c-soc" type="text"/></div>
-<div class="cf-g"><label class="cf-l" data-k="cf_type">Type de projet *</label><select class="cf-s" id="c-type" required=""></select></div>
-<div class="cf-g"><label class="cf-l" data-k="cf_msg">Votre projet *</label><textarea class="cf-t" data-k-ph="cf_msg_ph" id="c-msg" required="" rows="4"></textarea></div>
-<button class="cf-sb" data-k="cf_btn" id="ct-sub" type="button">Envoyer le brief ↗</button>
-</div>
+<div class="cf-g"><label class="cf-l" data-k="cf_em">Email *</label><input class="cf-i" data-k-ph="ph_em" id="c-email" name="email" required="" type="email"/></div>
+<div class="cf-g"><label class="cf-l" data-k="cf_soc">Société / Structure</label><input class="cf-i" data-k-ph="cf_soc_ph" id="c-soc" name="societe" type="text"/></div>
+<div class="cf-g"><label class="cf-l" data-k="cf_type">Type de projet *</label><select class="cf-s" id="c-type" name="type_projet" required=""></select></div>
+<div class="cf-g"><label class="cf-l" data-k="cf_msg">Votre projet *</label><textarea class="cf-t" data-k-ph="cf_msg_ph" id="c-msg" name="message" required="" rows="4"></textarea></div>
+<button class="cf-sb" data-k="cf_btn" id="ct-sub" type="submit">Envoyer le brief ↗</button>
+</form>
 </div>
 </div>
 </section>
@@ -1911,96 +1911,6 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a) {
   });
 }();
 
-// ── CONTACT SUBMIT — Formspree ──────────────────────
-!function() {
-  var btn = document.getElementById('ct-sub'); if (!btn) return;
-  btn.addEventListener('click', async function() {
-    var t = T[LANG];
-    var prenom = document.getElementById('c-prenom').value.trim();
-    var nom = document.getElementById('c-nom').value.trim();
-    var email = document.getElementById('c-email').value.trim();
-    var soc = document.getElementById('c-soc').value.trim();
-    var type = document.getElementById('c-type').value;
-    var msg = document.getElementById('c-msg').value.trim();
-    if (!prenom || !email || !msg) { btn.textContent = t.ct_sub_req; setTimeout(function() { btn.textContent = t.cf_btn; }, 2500); return; }
-    btn.classList.add('sending'); btn.textContent = LANG === 'fr' ? 'Envoi en cours…' : 'Sending…'; btn.disabled = true;
-    var endpoint = 'https://formspree.io/f/__FORMSPREE_CONTACT__';
-    try {
-      var r = await fetch(endpoint, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
-        body: JSON.stringify({
-          nom: prenom + ' ' + nom, email: email, societe: soc,
-          type_projet: type, message: msg,
-          _subject: 'Nouveau brief — Spring Vision Studio',
-          _language: LANG
-        })
-      });
-      if (r.ok) {
-        btn.classList.remove('sending'); btn.classList.add('sent');
-        btn.textContent = t.ct_sub_ok; btn.disabled = true;
-        document.getElementById('c-prenom').value = '';
-        document.getElementById('c-nom').value = '';
-        document.getElementById('c-email').value = '';
-        document.getElementById('c-soc').value = '';
-        document.getElementById('c-msg').value = '';
-        setTimeout(function() { btn.classList.remove('sent'); btn.textContent = t.cf_btn; btn.disabled = false; }, 6000);
-      } else { throw new Error('HTTP ' + r.status); }
-    } catch(err) {
-      btn.classList.remove('sending'); btn.disabled = false;
-      btn.textContent = t.cf_btn;
-      var errMsg = LANG === 'fr' ? 'Erreur d’envoi. Écrivez directement à infos@springvision.studio' : 'Send error. Write directly to infos@springvision.studio';
-      alert(errMsg);
-    }
-  });
-}();
-
-// ── PREST SUBMIT — Formspree ────────────────────────
-!function() {
-  var btn = document.getElementById('pr-sub'); if (!btn) return;
-  btn.addEventListener('click', async function() {
-    var t = T[LANG];
-    var prenom = document.getElementById('pr-prenom').value.trim();
-    var nom = document.getElementById('pr-nom').value.trim();
-    var email = document.getElementById('pr-email').value.trim();
-    var role = document.getElementById('pr-role').value;
-    var exp = document.getElementById('pr-exp').value;
-    var link = document.getElementById('pr-link').value.trim();
-    var msg = document.getElementById('pr-msg').value.trim();
-    var fmts = Array.from(document.querySelectorAll('#pr-fmts .g-rb.sel')).map(function(b){return b.textContent}).join(', ');
-    if (!prenom || !email || !role || role === '') {
-      document.getElementById('pr-err').textContent = t.pr_sub_req;
-      document.getElementById('pr-err').classList.add('on'); return;
-    }
-    document.getElementById('pr-err').classList.remove('on');
-    btn.classList.add('sending'); btn.querySelector('.g-lbl2').textContent = LANG === 'fr' ? 'Envoi…' : 'Sending…'; btn.disabled = true;
-    var endpoint = 'https://formspree.io/f/__FORMSPREE_PREST__';
-    try {
-      var r = await fetch(endpoint, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
-        body: JSON.stringify({
-          nom: prenom + ' ' + nom, email: email, metier: role,
-          experience: exp, formats: fmts, portfolio: link, message: msg,
-          _subject: 'Nouveau prestataire — Spring Vision Studio',
-          _language: LANG
-        })
-      });
-      if (r.ok) {
-        btn.classList.remove('sending'); btn.classList.add('sent');
-        btn.querySelector('.g-lbl2').textContent = t.pr_sub_ok; btn.disabled = true;
-        ['pr-prenom','pr-nom','pr-email','pr-link','pr-msg'].forEach(function(id){document.getElementById(id).value='';});
-        setTimeout(function() { btn.classList.remove('sent'); btn.querySelector('.g-lbl2').textContent = t.pr_btn; btn.disabled = false; }, 6000);
-      } else { throw new Error('HTTP ' + r.status); }
-    } catch(err) {
-      btn.classList.remove('sending'); btn.disabled = false;
-      btn.querySelector('.g-lbl2').textContent = t.pr_btn;
-      var errMsg = LANG === 'fr' ? 'Erreur. Réessayez ou écrivez à infos@springvision.studio' : 'Error. Retry or write to infos@springvision.studio';
-      alert(errMsg);
-    }
-  });
-}();
-
 // ── AI BRIEF ────────────────────────────────────────
 !function() {
   var LUMIA_KEY = '__LUMIA_KEY__';
@@ -2145,31 +2055,68 @@ applyLang(LANG);
 </div>
 </div>
 <script>
-document.querySelectorAll("form").forEach(form => {
-  form.addEventListener("submit", async (e) => {
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xaqagnyw";
+
+document.querySelectorAll('form[action^="https://formspree.io/f/"]').forEach((form) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const btn = form.querySelector("button");
-    if (btn) btn.classList.add("sending");
-    const data = new FormData(form);
-    try {
-      const res = await fetch(form.action, {
-        method: "POST",
-        body: data,
-        headers: { 'Accept': 'application/json' }
-      });
-      if (res.ok) {
-        if (btn) {
-          btn.classList.remove("sending");
-          btn.innerText = "Envoyé ✔";
-        }
-        form.reset();
-      } else {
-        alert("Erreur, réessaie.");
-        if (btn) btn.classList.remove("sending");
+
+    const btn = form.querySelector('button[type="submit"], button');
+    const originalHTML = btn ? btn.innerHTML : '';
+
+    if (form.id === 'prestataire-form') {
+      const formatsInput = form.querySelector('#pr-formats-hidden');
+      if (formatsInput) {
+        formatsInput.value = Array.from(document.querySelectorAll('#pr-fmts .g-rb.sel'))
+          .map((b) => b.textContent.trim())
+          .join(', ');
       }
+    }
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    if (btn) {
+      btn.classList.add('sending');
+      btn.disabled = true;
+      btn.innerHTML = LANG === 'en' ? 'Sending…' : 'Envoi en cours…';
+    }
+
+    try {
+      const res = await fetch(form.action || FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' }
+      });
+
+      if (!res.ok) throw new Error('Formspree error ' + res.status);
+
+      if (btn) {
+        btn.classList.remove('sending');
+        btn.classList.add('sent');
+        btn.innerHTML = LANG === 'en' ? '✓ Sent' : '✓ Envoyé';
+      }
+
+      form.reset();
+
+      setTimeout(() => {
+        if (btn) {
+          btn.classList.remove('sent');
+          btn.disabled = false;
+          btn.innerHTML = originalHTML;
+        }
+      }, 4500);
     } catch (err) {
-      alert("Erreur réseau.");
-      if (btn) btn.classList.remove("sending");
+      if (btn) {
+        btn.classList.remove('sending');
+        btn.disabled = false;
+        btn.innerHTML = originalHTML;
+      }
+      alert(LANG === 'en'
+        ? 'Send error. Please write directly to infos@springvision.studio'
+        : 'Erreur d’envoi. Écrivez directement à infos@springvision.studio');
     }
   });
 });
