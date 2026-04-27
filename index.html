@@ -1,0 +1,2171 @@
+<!DOCTYPE html>
+<html lang="fr" id="hr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Spring Vision Studio — Maison de Production · Paris</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Barlow+Condensed:wght@300;400;600;700&family=Space+Mono:ital,wght@0,400;1,400&display=swap"/>
+<style>
+:root{--ink:#020202;--surf:#080808;--card:#0D0D0D;--paper:#ECE7DE;--dim:rgba(236,231,222,.46);--faint:rgba(236,231,222,.09);--edge:rgba(236,231,222,.07);--spring:#B5FF35;--s08:rgba(181,255,53,.08);--s15:rgba(181,255,53,.15);--s30:rgba(181,255,53,.30)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;scroll-behavior:smooth}
+body{background:var(--ink);color:var(--paper);font-family:'Space Mono',monospace;overflow-x:hidden;cursor:none;-webkit-font-smoothing:antialiased}
+body::after{content:'';position:fixed;inset:0;z-index:9990;pointer-events:none;opacity:.028;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23g)'/%3E%3C/svg%3E")}
+
+/* CURSOR */
+#cur{position:fixed;top:0;left:0;z-index:9999;pointer-events:none}
+.co{width:38px;height:38px;border-radius:50%;border:1px solid rgba(236,231,222,.22);position:absolute;transform:translate(-50%,-50%);transition:width .22s,height .22s,border-color .22s,background .22s}
+.ci{width:4px;height:4px;border-radius:50%;background:var(--spring);position:absolute;transform:translate(-50%,-50%)}
+.cl{position:absolute;transform:translate(-50%,-50%);font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--ink);opacity:0;white-space:nowrap;transition:opacity .2s}
+body.cv .co{width:68px;height:68px;background:var(--spring);border-color:var(--spring)}
+body.cv .ci{opacity:0}body.cv .cl{opacity:1}
+body.ch .co{width:52px;height:52px;background:var(--s08);border-color:var(--spring)}
+
+/* LANG TOGGLE */
+.lang-tgl{display:flex;border:1px solid rgba(236,231,222,.18);border-radius:2px;overflow:hidden}
+.lang-btn{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;background:transparent;border:none;color:rgba(236,231,222,.35);padding:7px 12px;cursor:none;transition:all .22s}
+.lang-btn.on{background:var(--spring);color:var(--ink)}
+.lang-btn:not(.on):hover{color:var(--paper)}
+
+/* PRELOADER */
+#pre{position:fixed;inset:0;z-index:10000;background:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;transition:opacity .65s,visibility .65s}
+#pre.out{opacity:0;visibility:hidden;pointer-events:none}
+.pre-s{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.44em;text-transform:uppercase;color:var(--dim)}
+.pre-strip{display:flex;align-items:center}
+.pre-holes{display:flex;flex-direction:column;gap:9px;padding:0 11px}
+.pre-holes span{width:13px;height:19px;border:1.5px solid var(--faint);border-radius:3px;display:block}
+.pre-n{font-family:'Cormorant Garamond',serif;font-size:104px;font-weight:300;line-height:1;color:var(--paper);letter-spacing:-.05em;min-width:138px;text-align:center}
+.pre-bar{width:200px;height:1px;background:var(--faint);overflow:hidden}
+.pre-fill{height:100%;background:var(--spring);width:0%;transition:width 2.3s cubic-bezier(.4,0,.2,1)}
+
+/* MENU */
+#menu{position:fixed;inset:0;z-index:800;background:var(--ink);clip-path:inset(0 0 100% 0);transition:clip-path .72s cubic-bezier(.22,1,.36,1);display:flex;flex-direction:column;padding:126px 56px 56px;justify-content:space-between}
+#menu.open{clip-path:inset(0 0 0% 0)}
+.m-nav{list-style:none}
+.m-item{overflow:hidden;border-bottom:1px solid var(--edge)}
+.m-item:first-child{border-top:1px solid var(--edge)}
+.m-item a{display:flex;align-items:baseline;justify-content:space-between;padding:21px 0;text-decoration:none;transform:translateY(108%);transition:transform .62s cubic-bezier(.22,1,.36,1)}
+#menu.open .m-item:nth-child(1) a{transform:translateY(0);transition-delay:.07s}
+#menu.open .m-item:nth-child(2) a{transform:translateY(0);transition-delay:.12s}
+#menu.open .m-item:nth-child(3) a{transform:translateY(0);transition-delay:.17s}
+#menu.open .m-item:nth-child(4) a{transform:translateY(0);transition-delay:.22s}
+#menu.open .m-item:nth-child(5) a{transform:translateY(0);transition-delay:.27s}
+#menu.open .m-item:nth-child(6) a{transform:translateY(0);transition-delay:.32s}
+#menu.open .m-item:nth-child(7) a{transform:translateY(0);transition-delay:.37s}
+.m-t{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,5vw,66px);font-weight:300;font-style:italic;color:var(--paper);transition:color .28s}
+.m-item a:hover .m-t{color:var(--spring)}
+.m-n{font-family:'Space Mono',monospace;font-size:11px;color:var(--dim)}
+.m-foot{display:flex;justify-content:space-between;align-items:flex-end}
+.m-mail{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--spring);text-decoration:none}
+.m-soc{display:flex;gap:22px}
+.m-soc a{font-family:'Space Mono',monospace;font-size:11px;font-style:italic;color:var(--dim);text-decoration:none;transition:color .28s}
+.m-soc a:hover{color:var(--paper)}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:900;padding:30px 56px;display:flex;align-items:center;justify-content:space-between;mix-blend-mode:difference}
+.n-logo{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--paper);text-decoration:none;display:flex;align-items:center;gap:14px}
+.n-mark{width:27px;height:27px;border:1.5px solid var(--spring);border-radius:50%;display:flex;align-items:center;justify-content:center}
+.n-mark::after{content:'';width:0;height:0;margin-left:2px;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:9px solid var(--spring)}
+.n-r{display:flex;align-items:center;gap:18px}
+.n-cta{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--paper);text-decoration:none;opacity:.44;transition:opacity .28s}
+.n-cta:hover{opacity:1}
+.burger{width:34px;height:21px;display:flex;flex-direction:column;justify-content:space-between;cursor:none}
+.burger span{display:block;width:100%;height:1px;background:var(--paper);transition:transform .38s cubic-bezier(.22,1,.36,1),opacity .28s}
+.burger.open span:nth-child(1){transform:translateY(10px) rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.burger.open span:nth-child(3){transform:translateY(-10px) rotate(-45deg)}
+
+/* HERO */
+#hero{height:100dvh;min-height:600px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:0 56px 64px}
+.h-vw{position:absolute;inset:0;z-index:0;overflow:hidden;background:var(--ink)}
+.h-vw iframe{position:absolute;top:50%;left:50%;min-width:100%;min-height:100%;width:100vw;height:56.25vw;transform:translate(-50%,-50%);pointer-events:none;border:none}
+.h-fall{position:absolute;inset:0;background:linear-gradient(148deg,#070e02 0%,#020202 44%,#020808 100%)}
+.h-ovl{position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(2,2,2,.93) 0%,rgba(2,2,2,.3) 40%,rgba(2,2,2,.12) 66%,rgba(2,2,2,.36) 100%)}
+.h-c{position:relative;z-index:2}
+.h-eye{font-family:'Space Mono',monospace;font-size:10px;font-style:italic;color:var(--spring);letter-spacing:.1em;margin-bottom:22px;opacity:0;animation:fup .8s .38s ease forwards}
+h1.h-t{font-family:'Cormorant Garamond',serif;font-size:clamp(64px,10.5vw,148px);font-weight:300;line-height:.88;letter-spacing:-.03em}
+.h-ln{display:block;overflow:hidden}
+.h-ln span{display:inline-block;opacity:0;transform:translateY(108%);animation:lu 1.05s cubic-bezier(.16,1,.3,1) forwards}
+.h-ln:nth-child(1) span{animation-delay:.50s}
+.h-ln:nth-child(2) span{animation-delay:.65s;font-style:italic;color:var(--spring)}
+.h-ln:nth-child(3) span{animation-delay:.82s}
+@keyframes lu{to{opacity:1;transform:translateY(0)}}
+@keyframes fup{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.h-sub{display:flex;align-items:flex-end;justify-content:space-between;margin-top:40px;gap:20px;opacity:0;animation:fup .8s 1.28s ease forwards}
+.h-desc{font-family:'Space Mono',monospace;font-size:11px;font-style:italic;color:var(--dim);line-height:1.8;max-width:320px;white-space:pre-line}
+.h-scroll{display:flex;flex-direction:column;align-items:center;gap:10px;flex-shrink:0}
+.h-bar{width:1px;height:54px;background:linear-gradient(to bottom,var(--spring),transparent);animation:sp 2.2s ease-in-out infinite;transform-origin:top}
+@keyframes sp{0%,100%{transform:scaleY(1);opacity:1}50%{transform:scaleY(.4);opacity:.3}}
+.h-scroll span{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--dim)}
+
+/* TICKER */
+.tkr{border-top:1px solid var(--edge);border-bottom:1px solid var(--edge);overflow:hidden;padding:15px 0}
+.tkr-t{display:flex;width:max-content;animation:tk 34s linear infinite}
+.tkr-i{font-family:'Space Mono',monospace;font-size:10px;font-style:italic;color:var(--dim);padding:0 42px;white-space:nowrap}
+.tkr-dot{color:var(--spring)}
+@keyframes tk{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* SHARED */
+.pad{padding:120px 56px}
+.s-lbl{font-family:'Space Mono',monospace;font-size:10px;font-style:italic;color:var(--spring);letter-spacing:.1em;display:block;margin-bottom:14px}
+.s-h{font-family:'Cormorant Garamond',serif;font-size:clamp(42px,5.5vw,74px);font-weight:300;line-height:1;color:var(--paper)}
+.s-h em{font-style:italic;color:var(--spring)}
+
+/* SHOWREEL */
+#showreel{background:var(--ink);padding:100px 56px}
+.sr-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:44px;flex-wrap:wrap;gap:20px}
+.sr-hint{font-family:'Space Mono',monospace;font-size:11px;font-style:italic;color:var(--dim)}
+.sr-w{width:100%;aspect-ratio:16/9;background:var(--surf);border:1px solid var(--edge);border-radius:2px;position:relative;overflow:hidden}
+.sr-iftw{position:absolute;inset:0;opacity:0;transition:opacity .5s;pointer-events:none}
+.sr-iftw.on{opacity:1;pointer-events:all}
+.sr-iftw iframe{width:100%;height:100%;border:none}
+.sr-post{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(140deg,#0b1602,#020202,#020808);transition:opacity .4s}
+.sr-post.gone{opacity:0;pointer-events:none}
+.play-btn{width:94px;height:94px;border-radius:50%;border:1.5px solid rgba(236,231,222,.54);background:rgba(181,255,53,.06);display:flex;align-items:center;justify-content:center;cursor:none;transition:transform .28s,background .28s,border-color .28s;position:relative}
+.play-btn::before{content:'';position:absolute;inset:-14px;border-radius:50%;border:1px solid var(--s15);animation:rpl 2.2s ease-out infinite}
+@keyframes rpl{0%{transform:scale(1);opacity:.5}100%{transform:scale(1.44);opacity:0}}
+.play-btn:hover{transform:scale(1.07);background:rgba(181,255,53,.18);border-color:var(--spring)}
+.play-ico{width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:18px solid var(--paper);margin-left:4px}
+
+/* VISION */
+#vision{background:var(--surf);padding:120px 56px}
+.vision-wrap{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;margin-top:72px}
+.vision-stmt{font-family:'Cormorant Garamond',serif;font-size:clamp(22px,2.8vw,40px);font-weight:300;font-style:italic;line-height:1.28;color:var(--paper);margin-bottom:36px}
+.vision-stmt strong{font-style:normal;color:var(--spring)}
+.vision-body{font-family:'Space Mono',monospace;font-size:11px;font-style:italic;color:var(--dim);line-height:1.82;margin-bottom:18px}
+.vi-item{padding:26px 0;border-bottom:1px solid var(--edge);display:flex;align-items:center;gap:20px;cursor:none}
+.vi-item:first-child{border-top:1px solid var(--edge)}
+.vi-n{font-family:'Space Mono',monospace;font-size:10px;font-style:italic;color:var(--spring);min-width:22px;flex-shrink:0}
+.vi-t{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--paper);flex:1;transition:color .28s}
+.vi-item:hover .vi-t{color:var(--spring)}
+.vi-a{color:var(--faint);font-size:16px;transition:color .28s,transform .28s}
+.vi-item:hover .vi-a{color:var(--spring);transform:translate(4px,-4px)}
+
+/* SERVICES */
+#services{background:var(--ink);padding:120px 0 120px 56px;overflow:hidden}
+.svc-h{padding-right:56px;margin-bottom:64px}
+.svc-sc{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.svc-sc::-webkit-scrollbar{display:none}
+.svc-tr{display:flex;gap:2px;width:max-content;padding-right:56px}
+.svc-c{width:340px;flex-shrink:0;background:var(--card);border:1px solid var(--edge);padding:48px 34px;cursor:none;transition:border-color .38s;position:relative;overflow:hidden}
+.svc-c::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1.5px;background:var(--spring);transform:scaleX(0);transform-origin:left;transition:transform .38s cubic-bezier(.22,1,.36,1)}
+.svc-c:hover{border-color:var(--s15)}.svc-c:hover::after{transform:scaleX(1)}
+.svc-ico{width:30px;height:30px;color:var(--dim);margin-bottom:22px;transition:color .28s}
+.svc-c:hover .svc-ico{color:var(--spring)}
+.svc-num{font-family:'Space Mono',monospace;font-size:10px;font-style:italic;color:var(--faint);margin-bottom:24px}
+.svc-name{font-family:'Barlow Condensed',sans-serif;font-size:17px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--paper);margin-bottom:14px}
+.svc-desc{font-family:'Space Mono',monospace;font-size:11px;font-style:italic;color:var(--dim);line-height:1.78}
+.svc-tags{margin-top:26px;display:flex;flex-wrap:wrap;gap:8px}
+.svc-tag{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--spring);border:1px solid var(--s15);padding:4px 10px;border-radius:20px}
+
+/* PROMESSE */
+#promesse{background:var(--surf);padding:120px 56px}
+.pr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:72px}
+.pr-card{background:var(--card);border:1px solid var(--edge);padding:48px 36px;cursor:none;position:relative;overflow:hidden;transition:border-color .38s}
+.pr-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1.5px;background:var(--spring);transform:scaleX(0);transform-origin:left;transition:transform .38s cubic-bezier(.22,1,.36,1)}
+.pr-card:hover{border-color:var(--s15)}.pr-card:hover::before{transform:scaleX(1)}
+.pr-num{font-family:'Space Mono',monospace;font-size:10px;font-style:italic;color:var(--spring);margin-bottom:28px}
+.pr-title{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--paper);margin-bottom:16px}
+.pr-body{font-family:'Space Mono',monospace;font-size:11px;font-style:italic;color:var(--dim);line-height:1.8}
+
+/* MANIFESTE */
+#manifeste{background:var(--ink);padding:140px 56px;border-top:1px solid var(--edge);border-bottom:1px solid var(--edge)}
+.mani-in{max-width:860px;margin:0 auto;text-align:center}
+.mani-tag{font-family:'Space Mono',monospace;font-size:10px;font-style:italic;color:var(--spring);letter-spacing:.15em;margin-bottom:52px;display:block}
+.mani-body{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,3.3vw,46px);font-weight:300;font-style:italic;line-height:1.28;color:var(--paper);margin-bottom:60px}
+.mani-body strong{font-style:normal;color:var(--spring)}
+.mani-sig{display:flex;align-items:center;justify-content:center;gap:18px}
+.mani-sig::before,.mani-sig::after{content:'';flex:1;max-width:88px;height:1px;background:var(--edge)}
+.mani-sig span{font-family:'Space Mono',monospace;font-size:10px;font-style:italic;color:var(--dim)}
+
+/* PROCESS */
+#process{background:var(--surf);padding:120px 56px}
+.proc-w{display:flex;border-top:1px solid var(--edge);margin-top:72px}
+.proc-s{flex:1;padding:40px 28px;border-right:1px solid var(--edge);cursor:none}
+.proc-s:last-child{border-right:none}
+.ps-dot{width:9px;height:9px;border-radius:50%;border:1px solid var(--faint);margin-bottom:26px;transition:background .28s,border-color .28s}
+.proc-s:hover .ps-dot{background:var(--spring);border-color:var(--spring)}
+.ps-n{font-family:'Space Mono',monospace;font-size:10px;font-style:italic;color:var(--spring);margin-bottom:12px}
+.ps-t{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--paper);margin-bottom:12px}
+.ps-d{font-family:'Space Mono',monospace;font-size:11px;font-style:italic;color:var(--dim);line-height:1.75}
+
+/* OUTILS */
+#outils{background:var(--ink);padding:120px 56px}
+.ot-tabs{display:flex;margin-top:44px;border:1px solid var(--edge);border-radius:2px;overflow-x:auto;scrollbar-width:none}
+.ot-tabs::-webkit-scrollbar{display:none}
+.ot-tab{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;background:transparent;border:none;border-right:1px solid var(--edge);color:var(--dim);padding:13px 22px;cursor:none;transition:background .28s,color .28s;white-space:nowrap;flex-shrink:0}
+.ot-tab:last-child{border-right:none}
+.ot-tab.on{background:var(--spring);color:var(--ink)}
+.ot-tab:not(.on):hover{color:var(--paper)}
+.ot-panel{display:none;padding-top:40px}.ot-panel.on{display:block}
+
+/* GADGET SHARED */
+.g-form{display:flex;flex-direction:column;gap:15px}
+.g-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.g-grp{display:flex;flex-direction:column;gap:7px}
+.g-lbl{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--dim)}
+.g-in,.g-sel{background:var(--card);border:1px solid var(--edge);color:var(--paper);font-family:'Space Mono',monospace;font-size:11px;font-style:italic;padding:12px 15px;border-radius:2px;outline:none;transition:border-color .28s;width:100%;-webkit-appearance:none}
+.g-in::placeholder{color:var(--faint)}
+.g-in:focus,.g-sel:focus{border-color:var(--spring)}
+.g-sel{cursor:none}.g-sel option{background:var(--card)}
+.g-slider{-webkit-appearance:none;width:100%;height:2px;background:var(--edge);border-radius:1px;outline:none;cursor:none}
+.g-slider::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--spring)}
+.g-slider::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--spring);border:none}
+.g-btn{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;background:var(--spring);color:var(--ink);border:none;padding:15px 28px;border-radius:2px;cursor:none;display:inline-flex;align-items:center;gap:10px;transition:background .28s,transform .2s;width:fit-content}
+.g-btn:hover{background:#ccff55;transform:translateY(-2px)}
+.g-btn.busy{background:#7fad22;pointer-events:none}
+.spin{display:none;width:14px;height:14px;border-radius:50%;border:2px solid rgba(2,2,2,.28);border-top-color:var(--ink);animation:spn .65s linear infinite}
+.g-btn.busy .spin{display:block}.g-btn.busy .g-lbl2{opacity:.5}
+@keyframes spn{to{transform:rotate(360deg)}}
+.g-result{margin-top:24px;background:var(--card);border:1px solid var(--s15);border-radius:2px;padding:28px;display:none;position:relative}
+.g-result.on{display:block}
+.g-result::before{content:'';position:absolute;top:0;left:0;right:0;height:1.5px;background:linear-gradient(to right,var(--spring),transparent)}
+.g-result-lbl{font-family:'Space Mono',monospace;font-size:9px;font-style:italic;color:var(--spring);letter-spacing:.08em;margin-bottom:16px;display:block}
+.g-err{font-family:'Space Mono',monospace;font-size:11px;font-style:italic;color:#FF3030;display:none;margin-top:8px}
+.g-err.on{display:block}
+.g-rg{display:flex;flex-wrap:wrap;gap:8px}
+.g-rb{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);border:1px solid var(--edge);padding:7px 14px;border-radius:2px;cursor:none;transition:all .22s;background:transparent}
+.g-rb.sel{background:var(--spring);color:var(--ink);border-color:var(--spring)}
+.g-rb:not(.sel):hover{border-color:var(--spring);color:var(--spring)}
+
+/* BUDGET TABLE */
+.bw{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.b-tbl{width:100%;border-collapse:collapse}
+.b-tbl th{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);padding:10px 0;border-bottom:1px solid var(--edge);text-align:left}
+.b-tbl th:last-child{text-align:right}
+.b-tbl td{font-family:'Space Mono',monospace;font-size:11px;font-style:italic;color:var(--paper);padding:12px 0;border-bottom:1px solid var(--faint)}
+.b-tbl td:last-child{text-align:right;color:var(--spring)}
+.b-tbl tr.tot td{border-top:1px solid var(--edge);border-bottom:none;padding-top:18px;font-style:normal}
+.b-tbl tr.tot td:first-child{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.b-tbl tr.tot td:last-child{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--spring)}
+.b-note{font-family:'Space Mono',monospace;font-size:9px;font-style:italic;color:var(--dim);margin-top:14px;line-height:1.6}
+
+/* PLANNING */
+.pw{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.tl-item{display:flex}
+.tl-left{display:flex;flex-direction:column;align-items:center;width:40px;flex-shrink:0}
+.tl-dot{width:10px;height:10px;border-radius:50%;background:var(--spring);flex-shrink:0;margin-top:4px}
+.tl-line{flex:1;width:1px;background:var(--edge);margin:4px 0}
+.tl-item:last-child .tl-line{display:none}
+.tl-cont{padding:0 0 28px 12px;flex:1}
+.tl-date{font-family:'Space Mono',monospace;font-size:9px;font-style:italic;color:var(--spring);margin-bottom:4px}
+.tl-phase{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--paper);margin-bottom:4px}
+.tl-desc{font-family:'Space Mono',monospace;font-size:10px;font-style:italic;color:var(--dim);line-height:1.6}
+
+/* ASPECT RATIOS */
+.ar-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.ar-card{background:var(--card);border:1px solid var(--edge);padding:20px 16px;cursor:none;transition:border-color .28s;display:flex;flex-direction:column;align-items:center;gap:14px;position:relative}
+.ar-card.sel{border-color:var(--spring)}
+.ar-card:hover{border-color:var(--s30)}
+.ar-canvas{width:100%;max-width:120px;display:flex;align-items:center;justify-content:center;min-height:70px}
+.ar-rect{background:transparent;border:1px solid var(--dim);display:block;transition:border-color .28s}
+.ar-card.sel .ar-rect{border-color:var(--spring)}
+.ar-name{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--paper);text-align:center}
+.ar-ratio{font-family:'Space Mono',monospace;font-size:10px;font-style:italic;color:var(--spring);text-align:center}
+.ar-det{background:var(--card);border:1px solid var(--edge);padding:32px;display:none;grid-column:1/-1}
+.ar-det.on{display:block}
+.ar-det-name{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;font-style:italic;color:var(--paper);margin-bottom:8px}
+.ar-det-ratio{font-family:'Space Mono',monospace;font-size:12px;font-style:italic;color:var(--spring);margin-bottom:20px}
+.ar-det-body{font-family:'Space Mono',monospace;font-size:11px;font-style:italic;color:var(--dim);line-height:1.82}
+.ar-viz{height:80px;border:1px solid var(--edge);margin-top:20px;background:#050505;display:flex;align-items:center;justify-content:center}
+.ar-viz-r{background:transparent;border:1px solid rgba(181,255,53,.3)}
+.mood-chk{position:absolute;top:8px;right:8px;width:18px;height:18px;border-radius:50%;background:var(--spring);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .22s}
+
+/* MOOD */
+.mood-panel .mood-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:28px}
+.mood-card{border:1px solid var(--edge);border-radius:2px;overflow:hidden;cursor:none;transition:border-color .28s;position:relative}
+.mood-card.sel{border-color:var(--spring)}
+.mood-thumb{width:100%;height:80px}
+.mood-info-d{padding:14px}
+.mood-name{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--paper);margin-bottom:4px}
+.mood-sub{font-family:'Space Mono',monospace;font-size:9px;font-style:italic;color:var(--dim)}
+.mood-sel-info{font-family:'Space Mono',monospace;font-size:11px;font-style:italic;color:var(--dim);margin-bottom:18px}
+.mood-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.g-btn-ol{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;background:transparent;color:var(--spring);border:1px solid var(--spring);padding:14px 26px;border-radius:2px;cursor:none;display:inline-flex;align-items:center;gap:10px;transition:all .28s;width:fit-content}
+.g-btn-ol:hover{background:var(--spring);color:var(--ink)}
+.ai-key-sm{background:var(--card);border:1px solid var(--edge);color:var(--paper);font-family:'Space Mono',monospace;font-size:11px;font-style:italic;padding:12px 15px;border-radius:2px;outline:none;transition:border-color .28s;width:100%;max-width:320px;-webkit-appearance:none;margin-top:12px}
+.ai-key-sm::placeholder{color:var(--faint)}
+.ai-key-sm:focus{border-color:var(--spring)}
+.mood-txt{font-family:'Space Mono',monospace;font-size:11px;font-style:italic;color:var(--dim);line-height:1.9;white-space:pre-wrap}
+
+/* GOLDEN HOUR */
+.gh-sr-row{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.gh-search{flex:1;background:var(--card);border:1px solid var(--edge);color:var(--paper);font-family:'Space Mono',monospace;font-size:11px;font-style:italic;padding:12px 16px;border-radius:2px;outline:none;transition:border-color .28s;-webkit-appearance:none}
+.gh-search::placeholder{color:var(--faint)}
+.gh-search:focus{border-color:var(--spring)}
+.gh-sel-city{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;font-style:italic;color:var(--spring);white-space:nowrap}
+.gh-cont{display:flex;overflow-x:auto;scrollbar-width:none;border:1px solid var(--edge);border-radius:2px;width:fit-content;max-width:100%;margin-bottom:16px}
+.gh-cont::-webkit-scrollbar{display:none}
+.gh-cont-btn{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;background:transparent;border:none;border-right:1px solid var(--edge);color:var(--dim);padding:9px 16px;cursor:none;transition:all .22s;white-space:nowrap;flex-shrink:0}
+.gh-cont-btn:last-child{border-right:none}
+.gh-cont-btn.on{background:var(--spring);color:var(--ink)}
+.gh-cont-btn:not(.on):hover{color:var(--paper)}
+.gh-strip{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px;margin-bottom:28px}
+.gh-strip::-webkit-scrollbar{display:none}
+.gh-track{display:flex;gap:8px;width:max-content}
+.gh-city-card{width:148px;flex-shrink:0;background:var(--card);border:1px solid var(--edge);padding:14px;cursor:none;transition:border-color .22s;border-radius:2px}
+.gh-city-card.sel{border-color:var(--spring)}
+.gh-city-card:not(.sel):hover{border-color:var(--s30)}
+.gh-city-card.hidden{display:none}
+.gh-city-name{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--paper);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color .22s}
+.gh-city-card.sel .gh-city-name{color:var(--spring)}
+.gh-city-co{font-family:'Space Mono',monospace;font-size:8px;font-style:italic;color:var(--dim);margin-bottom:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gh-city-lt{font-family:'Space Mono',monospace;font-size:14px;color:var(--spring)}
+.gh-main{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.gh-clock{font-family:'Cormorant Garamond',serif;font-size:clamp(44px,6.5vw,84px);font-weight:300;color:var(--paper);letter-spacing:-.03em;line-height:1;margin-bottom:6px}
+.gh-date{font-family:'Space Mono',monospace;font-size:10px;font-style:italic;color:var(--dim);margin-bottom:28px}
+.gh-next{background:var(--card);border:1px solid var(--edge);padding:24px;border-radius:2px;margin-bottom:16px;position:relative;overflow:hidden}
+.gh-next::before{content:'';position:absolute;top:0;left:0;right:0;height:1.5px}
+.gh-next.golden::before{background:linear-gradient(to right,#ffb800,transparent)}
+.gh-next.blue::before{background:linear-gradient(to right,#4a90d9,transparent)}
+.gh-next-lbl{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);margin-bottom:8px}
+.gh-next-name{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;font-style:italic;color:var(--paper);margin-bottom:4px}
+.gh-next-time{font-family:'Space Mono',monospace;font-size:18px;color:var(--spring)}
+.gh-countdown{font-family:'Space Mono',monospace;font-size:11px;font-style:italic;color:var(--dim);margin-top:5px}
+.gh-events{display:flex;flex-direction:column}
+.gh-ev{display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--edge)}
+.gh-ev:first-child{border-top:1px solid var(--edge)}
+.gh-ev-info{display:flex;flex-direction:column;gap:2px}
+.gh-ev-name{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--paper)}
+.gh-ev-desc{font-family:'Space Mono',monospace;font-size:9px;font-style:italic;color:var(--dim)}
+.gh-ev-time{font-family:'Space Mono',monospace;font-size:11px;color:var(--spring);flex-shrink:0;margin-left:12px}
+.gh-ev.past .gh-ev-name,.gh-ev.past .gh-ev-time{opacity:.3}
+.gh-ev.cur .gh-ev-name{color:var(--spring)}
+.gh-bar{width:100%;height:3px;background:var(--edge);border-radius:2px;margin-top:20px;position:relative}
+.gh-bar-fill{height:100%;border-radius:2px;background:linear-gradient(to right,#0d1f00,#4a7a00,#ffb800,#ff4400,#1a0030,#0d1f00);background-size:600% 100%}
+.gh-bar-now{position:absolute;top:-5px;bottom:-5px;width:2px;background:var(--paper);border-radius:1px;box-shadow:0 0 6px rgba(236,231,222,.5)}
+.gh-note{font-family:'Space Mono',monospace;font-size:9px;font-style:italic;color:var(--dim);margin-top:14px;line-height:1.7}
+
+/* PRESTATAIRES */
+.prest-wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.prest-intro{font-family:'Space Mono',monospace;font-size:11px;font-style:italic;color:var(--dim);line-height:1.82;margin-bottom:28px}
+.prest-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.prest-tag{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--spring);border:1px solid var(--s15);padding:4px 10px;border-radius:20px}
+
+/* AI BRIEF */
+#ai-brief{background:var(--surf);padding:120px 56px;position:relative;overflow:hidden}
+#ai-brief::before{content:'';position:absolute;top:-220px;right:-220px;width:620px;height:620px;border-radius:50%;background:radial-gradient(circle,rgba(181,255,53,.032),transparent 70%);pointer-events:none;animation:glw 10s ease-in-out infinite}
+@keyframes glw{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
+.ai-w{display:grid;grid-template-columns:1fr 1.12fr;gap:92px;align-items:start}
+.ai-badge{display:inline-flex;align-items:center;gap:9px;font-family:'Space Mono',monospace;font-size:10px;font-style:italic;color:var(--spring);margin-bottom:22px}
+.ai-dot{width:7px;height:7px;border-radius:50%;background:var(--spring);animation:adot 2.4s ease-in-out infinite}
+@keyframes adot{0%,100%{opacity:1}50%{opacity:.36}}
+.ai-h2{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,3.6vw,52px);font-weight:300;font-style:italic;line-height:1.1;color:var(--paper);margin-bottom:24px}
+.ai-h2 em{color:var(--spring);font-style:normal}
+.ai-sub{font-family:'Space Mono',monospace;font-size:11px;font-style:italic;color:var(--dim);line-height:1.82;max-width:380px}
+.af{display:flex;flex-direction:column;gap:15px}
+.af-r{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.af-g{display:flex;flex-direction:column;gap:7px}
+.af-l{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--dim)}
+.af-i,.af-s,.af-t{background:var(--card);border:1px solid var(--edge);color:var(--paper);font-family:'Space Mono',monospace;font-size:11px;font-style:italic;padding:13px 16px;border-radius:2px;outline:none;transition:border-color .28s;width:100%;-webkit-appearance:none}
+.af-i::placeholder,.af-t::placeholder{color:var(--faint)}
+.af-i:focus,.af-s:focus,.af-t:focus{border-color:var(--spring)}
+.af-s{cursor:none}.af-s option{background:var(--card)}
+.af-t{resize:vertical;min-height:76px;line-height:1.65}
+.af-note{font-family:'Space Mono',monospace;font-size:9px;font-style:italic;color:rgba(181,255,53,.3);line-height:1.65;margin-top:4px}
+.af-btn{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;background:var(--spring);color:var(--ink);border:none;padding:17px 32px;border-radius:2px;cursor:none;display:inline-flex;align-items:center;gap:10px;width:fit-content;transition:background .28s,transform .2s}
+.af-btn:hover{background:#ccff55;transform:translateY(-2px)}
+.af-btn.busy{background:#7fad22;pointer-events:none}
+.af-btn .spin{display:none;width:15px;height:15px;border-radius:50%;border:2px solid rgba(2,2,2,.28);border-top-color:var(--ink);animation:spn .65s linear infinite}
+.af-btn.busy .spin{display:block}.af-btn.busy .lbl{opacity:.5}
+.af-err{font-family:'Space Mono',monospace;font-size:11px;font-style:italic;color:#FF3030;display:none;margin-top:8px}
+.af-err.on{display:block}
+.af-res{margin-top:22px;background:var(--card);border:1px solid var(--s15);border-radius:2px;padding:28px;display:none;position:relative}
+.af-res.on{display:block}
+.af-res::before{content:'';position:absolute;top:0;left:0;right:0;height:1.5px;background:linear-gradient(to right,var(--spring),transparent)}
+.af-res-lbl{font-family:'Space Mono',monospace;font-size:9px;font-style:italic;color:var(--spring);letter-spacing:.08em;margin-bottom:16px;display:block}
+.af-res-txt{font-family:'Space Mono',monospace;font-size:11px;font-style:italic;color:var(--dim);line-height:1.9;white-space:pre-wrap}
+
+/* CONTACT */
+#contact{background:var(--ink);padding:120px 56px}
+.ct-w{display:grid;grid-template-columns:1fr 1fr;gap:92px}
+.ct-h2{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4.3vw,62px);font-weight:300;font-style:italic;line-height:1.1;color:var(--paper);margin-bottom:28px}
+.ct-h2 em{color:var(--spring);font-style:normal}
+.ct-body{font-family:'Space Mono',monospace;font-size:11px;font-style:italic;color:var(--dim);line-height:1.82;max-width:380px;margin-bottom:44px}
+.ct-lks{display:flex;flex-direction:column;gap:17px}
+.ct-lk{display:flex;align-items:center;gap:14px;font-family:'Space Mono',monospace;font-size:11px;font-style:italic;color:var(--dim);text-decoration:none;transition:color .28s;cursor:none}
+.ct-lk:hover{color:var(--spring)}
+.ct-ico{width:36px;height:36px;border:1px solid var(--edge);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:border-color .28s}
+.ct-lk:hover .ct-ico{border-color:var(--spring)}
+.ct-f{display:flex;flex-direction:column;gap:17px}
+.cf-r{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.cf-g{display:flex;flex-direction:column;gap:7px}
+.cf-l{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--dim)}
+.cf-i,.cf-s,.cf-t{background:var(--surf);border:1px solid var(--edge);color:var(--paper);font-family:'Space Mono',monospace;font-size:11px;font-style:italic;padding:13px 16px;border-radius:2px;outline:none;transition:border-color .28s;width:100%;-webkit-appearance:none}
+.cf-i::placeholder,.cf-t::placeholder{color:var(--faint)}
+.cf-i:focus,.cf-s:focus,.cf-t:focus{border-color:var(--spring)}
+.cf-s{cursor:none}.cf-s option{background:var(--surf)}
+.cf-t{resize:vertical;min-height:110px;line-height:1.65}
+.cf-sb{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;background:transparent;color:var(--spring);border:1px solid var(--spring);padding:15px 32px;border-radius:2px;cursor:none;display:inline-flex;align-items:center;gap:10px;width:fit-content;transition:all .28s}
+.cf-sb:hover{background:var(--spring);color:var(--ink)}
+
+/* FOOTER */
+footer{background:var(--ink);padding:60px 56px;border-top:1px solid var(--edge)}
+.ft-in{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:54px;margin-bottom:54px}
+.ft-logo{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--paper);display:block;margin-bottom:14px}
+.ft-tag{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;font-style:italic;color:var(--dim);line-height:1.55;margin-bottom:26px;white-space:pre-line}
+.ft-soc{display:flex;gap:10px}
+.ft-sl{width:32px;height:32px;border:1px solid var(--edge);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--dim);text-decoration:none;transition:border-color .28s,color .28s;cursor:none}
+.ft-sl:hover{border-color:var(--spring);color:var(--spring)}
+.ft-h{font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--paper);margin-bottom:20px}
+.ft-ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.ft-ul a{font-family:'Space Mono',monospace;font-size:11px;font-style:italic;color:var(--dim);text-decoration:none;transition:color .28s}
+.ft-ul a:hover{color:var(--spring)}
+.ft-bot{padding-top:28px;border-top:1px solid var(--edge);display:flex;justify-content:space-between;align-items:center}
+.ft-copy{font-family:'Space Mono',monospace;font-size:10px;font-style:italic;color:rgba(236,231,222,.18)}
+.ft-dom{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;font-style:italic;color:var(--dim)}
+.ft-dom span{color:var(--spring)}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .82s cubic-bezier(.22,1,.36,1),transform .82s cubic-bezier(.22,1,.36,1)}
+.rv.in{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.10s}.d2{transition-delay:.20s}.d3{transition-delay:.30s}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  nav{padding:22px 28px;mix-blend-mode:normal}
+  .pad,#showreel,#vision,#promesse,#manifeste,#process,#outils,#ai-brief,#contact{padding:70px 28px}
+  #services{padding:70px 0 70px 28px}
+  footer{padding:46px 28px}
+  .vision-wrap,.bw,.pw,.gh-main,.prest-wrap,.ai-w,.ct-w{grid-template-columns:1fr;gap:40px}
+  .pr-grid{grid-template-columns:1fr}
+  .mood-panel .mood-grid{grid-template-columns:repeat(2,1fr)}
+  .ar-grid{grid-template-columns:repeat(2,1fr)}
+  .ft-in{grid-template-columns:1fr 1fr;gap:38px}
+  .proc-w{flex-direction:column;border-top:none}
+  .proc-s{border-right:none;border-bottom:1px solid var(--edge);border-top:1px solid var(--edge);margin-top:-1px}
+  .cf-r,.af-r,.g-row{grid-template-columns:1fr}
+  .sr-head{flex-direction:column;align-items:flex-start;gap:12px}
+  #hero{padding:0 28px 52px}
+  #cur{display:none}body{cursor:auto}
+  .n-cta{display:none}
+}
+@media(max-width:560px){.ft-in{grid-template-columns:1fr}.ai-key-sm{max-width:100%}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}.rv{opacity:1;transform:none}}
+
+/* PROJECTS */
+#projets{background:var(--ink);padding:120px 56px;border-top:1px solid var(--edge)}
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:72px}
+.proj-card{background:var(--card);border:1px solid var(--edge);overflow:hidden;cursor:none;position:relative;transition:border-color .38s;aspect-ratio:16/10}
+.proj-card:hover{border-color:var(--s30)}
+.proj-thumb{width:100%;height:100%;background:var(--surf);position:absolute;inset:0;transition:transform .6s cubic-bezier(.22,1,.36,1)}
+.proj-card:hover .proj-thumb{transform:scale(1.04)}
+.proj-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(2,2,2,.92) 0%,rgba(2,2,2,.1) 50%,transparent 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:24px}
+.proj-year{font-family:'Space Mono',monospace;font-size:9px;font-style:italic;color:var(--spring);margin-bottom:6px}
+.proj-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--paper);margin-bottom:4px}
+.proj-fmt{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+.proj-tag{position:absolute;top:16px;right:16px;font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);background:var(--spring);padding:4px 10px;border-radius:20px}
+/* LEGAL MODAL */
+#legal-modal{position:fixed;inset:0;z-index:8000;background:rgba(2,2,2,.88);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;visibility:hidden;transition:opacity .38s,visibility .38s;backdrop-filter:blur(6px)}
+#legal-modal.open{opacity:1;visibility:visible}
+.legal-box{background:var(--surf);border:1px solid var(--edge);max-width:760px;width:100%;max-height:82vh;overflow-y:auto;padding:52px;position:relative;scrollbar-width:thin;scrollbar-color:var(--edge) transparent}
+.legal-close{position:absolute;top:20px;right:24px;font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);background:none;border:none;cursor:none;transition:color .22s}
+.legal-close:hover{color:var(--spring)}
+.legal-h1{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;color:var(--paper);margin-bottom:8px}
+.legal-h2{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--spring);margin:32px 0 12px}
+.legal-p{font-family:'Space Mono',monospace;font-size:11px;font-style:italic;color:var(--dim);line-height:1.82;margin-bottom:12px}
+.legal-trigger{font-family:'Space Mono',monospace;font-size:10px;font-style:italic;color:var(--dim);text-decoration:underline;cursor:none;background:none;border:none;transition:color .22s}
+.legal-trigger:hover{color:var(--spring)}
+/* RGPD BANNER */
+#rgpd{position:fixed;bottom:0;left:0;right:0;z-index:7000;background:var(--surf);border-top:1px solid var(--edge);padding:20px 56px;display:flex;align-items:center;justify-content:space-between;gap:20px;transform:translateY(100%);transition:transform .44s cubic-bezier(.22,1,.36,1)}
+#rgpd.show{transform:translateY(0)}
+.rgpd-txt{font-family:'Space Mono',monospace;font-size:10px;font-style:italic;color:var(--dim);line-height:1.65;max-width:680px}
+.rgpd-txt a{color:var(--spring);cursor:none}
+.rgpd-btns{display:flex;gap:10px;flex-shrink:0}
+.rgpd-ok{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;background:var(--spring);color:var(--ink);border:none;padding:10px 20px;border-radius:2px;cursor:none;transition:background .22s}
+.rgpd-ok:hover{background:#ccff55}
+.rgpd-ko{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;background:transparent;color:var(--dim);border:1px solid var(--edge);padding:10px 20px;border-radius:2px;cursor:none;transition:all .22s}
+.rgpd-ko:hover{border-color:var(--paper);color:var(--paper)}
+/* FORM SENDING STATE */
+.cf-sb.sending,.g-btn.sending{background:#7fad22;pointer-events:none}
+.cf-sb.sent{background:var(--spring);color:var(--ink)}
+/* MOBILE FIX */
+@media(max-width:560px){
+  .lang-tgl{display:flex!important}
+  .n-r{gap:10px}
+  #rgpd{padding:16px 20px;flex-direction:column;align-items:flex-start}
+  .proj-grid{grid-template-columns:1fr}
+}
+@media(max-width:760px){
+  .proj-grid{grid-template-columns:1fr 1fr}
+  .lang-tgl{display:flex!important}
+}
+</style>
+<meta name="robots" content="index, follow"/>
+<meta name="author" content="Spring Vision Studio"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://springvision.studio/"/>
+<meta property="og:title" content="Spring Vision Studio — Maison de Production Cinématographique · Paris"/>
+<meta property="og:description" content="Maison de production cinématographique à Paris. Film, série, clip, publicité, documentaire. Votre vision, notre exécution."/>
+<meta property="og:image" content="https://springvision.studio/og-image.jpg"/>
+<meta property="og:locale" content="fr_FR"/>
+<meta property="og:locale:alternate" content="en_GB"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Spring Vision Studio — Maison de Production · Paris"/>
+<meta name="twitter:description" content="Maison de production cinématographique à Paris."/>
+<meta name="twitter:image" content="https://springvision.studio/og-image.jpg"/>
+<link rel="canonical" href="https://springvision.studio/"/>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"Spring Vision Studio","url":"https://springvision.studio","logo":"https://springvision.studio/logo.png","description":"Maison de production cinématographique à Paris. Film, série, clip, publicité, documentaire.","address":{"@type":"PostalAddress","addressLocality":"Paris","addressRegion":"Île-de-France","addressCountry":"FR"},"email":"infos@springvision.studio","sameAs":["https://www.instagram.com/spring.vision.studio","https://www.linkedin.com/company/spring-vision-studio/"]}
+</script>
+</head>
+<body>
+
+<div id="cur" aria-hidden="true"><div class="co"></div><div class="ci"></div><div class="cl" id="cur-lbl">VOIR&#160;&#8599;</div></div>
+
+<div id="pre" role="status">
+  <p class="pre-s">Spring Vision Studio</p>
+  <div class="pre-strip" aria-hidden="true">
+    <div class="pre-holes"><span></span><span></span><span></span><span></span></div>
+    <div class="pre-n" id="pre-n">04</div>
+    <div class="pre-holes"><span></span><span></span><span></span><span></span></div>
+  </div>
+  <div class="pre-bar" aria-hidden="true"><div class="pre-fill" id="pre-fill"></div></div>
+</div>
+
+<div id="menu" role="dialog" aria-modal="true">
+  <ul class="m-nav">
+    <li class="m-item"><a href="#vision"><span class="m-t" data-k="m1">Notre vision</span><span class="m-n">01</span></a></li>
+    <li class="m-item"><a href="#services"><span class="m-t" data-k="m2">Disciplines</span><span class="m-n">02</span></a></li>
+    <li class="m-item"><a href="#promesse"><span class="m-t" data-k="m3">Engagements</span><span class="m-n">03</span></a></li>
+    <li class="m-item"><a href="#process"><span class="m-t" data-k="m4">M&#233;thode</span><span class="m-n">04</span></a></li>
+    <li class="m-item"><a href="#outils"><span class="m-t" data-k="m5">Outils &amp; Studio</span><span class="m-n">05</span></a></li>
+    <li class="m-item"><a href="#ai-brief"><span class="m-t" data-k="m6">Brief IA</span><span class="m-n">06</span></a></li>
+    <li class="m-item"><a href="#contact"><span class="m-t" data-k="m7">Contact</span><span class="m-n">07</span></a></li>
+  </ul>
+  <div class="m-foot">
+    <a href="mailto:infos@springvision.studio" class="m-mail">infos@springvision.studio</a>
+    <div class="m-soc"><a href="https://www.instagram.com/spring.vision.studio?igsh=MWttcWF2emMycTFvaQ==" target="_blank" rel="noopener">Instagram</a><a href="https://www.linkedin.com/company/spring-vision-studio/" target="_blank" rel="noopener">LinkedIn</a></div>
+  </div>
+</div>
+
+<nav>
+  <a href="#" class="n-logo"><span class="n-mark" aria-hidden="true"></span>Spring Vision Studio</a>
+  <div class="n-r">
+    <div class="lang-tgl" role="group" aria-label="Language">
+      <button class="lang-btn on" id="btn-fr" type="button">FR</button>
+      <button class="lang-btn" id="btn-en" type="button">EN</button>
+    </div>
+    <a href="#contact" class="n-cta" data-k="nav_cta">D&#233;marrer un projet&#160;&#8599;</a>
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="h-vw" aria-hidden="true">
+    <iframe id="hero-vimeo" src="https://player.vimeo.com/video/VOTRE_VIDEO_ID?background=1&autoplay=1&loop=1&muted=1&dnt=1" allow="autoplay; fullscreen" title="Spring Vision Studio"></iframe>
+    <div class="h-fall" id="hero-fall"></div>
+  </div>
+  <div class="h-ovl" aria-hidden="true"></div>
+  <div class="h-c">
+    <p class="h-eye" data-k="h_eye">&#8212; Maison de Production Cin&#233;matographique&#160;&#183;&#160;Paris</p>
+    <h1 class="h-t">
+      <span class="h-ln"><span>Spring</span></span>
+      <span class="h-ln"><span>Vision</span></span>
+      <span class="h-ln"><span>Studio.</span></span>
+    </h1>
+    <div class="h-sub">
+      <p class="h-desc" id="h_desc">Votre projet apporte la vision.
+Nous apportons l&#8217;ex&#233;cution.
+&#8212; Film. S&#233;rie. Clip. Publicit&#233;.
+Documentaire. Court-M&#233;trage.</p>
+      <div class="h-scroll" aria-hidden="true">
+        <div class="h-bar"></div>
+        <span data-k="scroll">Scroll</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="tkr" aria-hidden="true"><div class="tkr-t" id="tkr"></div></div>
+
+<section id="showreel">
+  <div class="sr-head rv">
+    <div>
+      <span class="s-lbl" data-k="sr_lbl">&#8212; 00 / Showreel</span>
+      <h2 class="s-h"><span data-k="sr_h1">Deux minutes.</span><br><em data-k="sr_h2">Tout ce que nous sommes.</em></h2>
+    </div>
+    <p class="sr-hint rv d2" data-k="sr_hint">Cliquez pour lire&#160;&#8595;</p>
+  </div>
+  <div class="sr-w rv d1">
+    <div class="sr-iftw" id="sr-ifw">
+      <iframe id="sr-if" src="" data-src="https://player.vimeo.com/video/VOTRE_SHOWREEL_ID?autoplay=1&color=b5ff35&title=0&byline=0&portrait=0" allow="autoplay; fullscreen; picture-in-picture"></iframe>
+    </div>
+    <div class="sr-post" id="sr-post">
+      <button class="play-btn" id="sr-play" aria-label="Play">
+        <div class="play-ico" aria-hidden="true"></div>
+      </button>
+    </div>
+  </div>
+</section>
+
+<section id="vision">
+  <div class="pad">
+    <div class="rv">
+      <span class="s-lbl" data-k="v_lbl">&#8212; 01 / Notre vision</span>
+      <h2 class="s-h"><span data-k="v_h1">Pourquoi nous</span><br><em data-k="v_h2">existons.</em></h2>
+    </div>
+    <div class="vision-wrap">
+      <div class="rv">
+        <p class="vision-stmt" id="v_stmt">&#171; Une maison de production n&#8217;est pas<br>une <strong>cha&#238;ne d&#8217;assemblage</strong>.<br>C&#8217;est un <strong>regard sur le monde</strong>. &#187;</p>
+        <p class="vision-body" data-k="v_b1">Spring Vision Studio na&#238;t d&#8217;une conviction simple&#160;: chaque projet m&#233;rite une attention totale, du premier mot du script jusqu&#8217;&#224; la derni&#232;re image livr&#233;e. Nous ne sommes pas un prestataire. Nous sommes des partenaires cr&#233;atifs.</p>
+        <p class="vision-body" data-k="v_b2">Fond&#233;e &#224; Paris, notre maison r&#233;unit des profils form&#233;s aux plus hautes exigences du cin&#233;ma, de la publicit&#233; et des nouvelles formes narratives. Nous accueillons votre vision avec la rigueur d&#8217;un artisan et l&#8217;ambition d&#8217;un auteur.</p>
+        <p class="vision-body" data-k="v_b3">Vous apportez le projet et son financement. Nous apportons le reste &#8212; talent, m&#233;thode, obsession du d&#233;tail.</p>
+      </div>
+      <div class="rv d2">
+        <div class="vi-item"><span class="vi-n">i.</span><span class="vi-t" data-k="vi1">Un regard exigeant sur chaque format</span><span class="vi-a">&#8594;</span></div>
+        <div class="vi-item"><span class="vi-n">ii.</span><span class="vi-t" data-k="vi2">La rigueur comme seule r&#232;gle</span><span class="vi-a">&#8594;</span></div>
+        <div class="vi-item"><span class="vi-n">iii.</span><span class="vi-t" data-k="vi3">Votre projet au centre de tout</span><span class="vi-a">&#8594;</span></div>
+        <div class="vi-item"><span class="vi-n">iv.</span><span class="vi-t" data-k="vi4">Des &#233;quipes s&#233;lectionn&#233;es projet par projet</span><span class="vi-a">&#8594;</span></div>
+        <div class="vi-item"><span class="vi-n">v.</span><span class="vi-t" data-k="vi5">Transparence totale &#224; chaque &#233;tape</span><span class="vi-a">&#8594;</span></div>
+        <div class="vi-item"><span class="vi-n">vi.</span><span class="vi-t" data-k="vi6">B&#233;s &#224; Paris, disponibles partout</span><span class="vi-a">&#8594;</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="svc-h rv">
+    <span class="s-lbl" data-k="svc_lbl">&#8212; 02 / Disciplines</span>
+    <h2 class="s-h"><span data-k="svc_h1">Ce que nous</span><br><em data-k="svc_h2">produisons.</em></h2>
+  </div>
+  <div class="svc-sc rv d1"><div class="svc-tr" id="svc-tr"></div></div>
+</section>
+
+<section id="promesse">
+  <div class="pad">
+    <div class="rv">
+      <span class="s-lbl" data-k="pr_lbl">&#8212; 03 / Nos engagements</span>
+      <h2 class="s-h"><span data-k="pr_h1">Ce que vous pouvez</span><br><em data-k="pr_h2">attendre de nous.</em></h2>
+    </div>
+    <div class="pr-grid" id="pr-grid"></div>
+  </div>
+</section>
+
+
+<section id="projets">
+  <div class="pad">
+    <div class="rv">
+      <span class="s-lbl" data-k="proj_lbl">&#8212; 06 / Références</span>
+      <h2 class="s-h"><span data-k="proj_h1">Ce que nous</span><br><em data-k="proj_h2">avons produit.</em></h2>
+    </div>
+    <div class="proj-grid">
+      <div class="proj-card rv">
+        <div class="proj-thumb" style="background:linear-gradient(135deg,#0a1a05 0%,#1a3a10 100%)"></div>
+        <div class="proj-overlay">
+          <span class="proj-year">2024</span>
+          <div class="proj-title" data-k="pr1_title">Titre du projet</div>
+          <div class="proj-fmt" data-k="pr1_fmt">Long-métrage · Fiction</div>
+        </div>
+        <span class="proj-tag" data-k="pr1_tag">Post-prod</span>
+      </div>
+      <div class="proj-card rv d1">
+        <div class="proj-thumb" style="background:linear-gradient(135deg,#1a0a00 0%,#3a1a00 50%,#5a3010 100%)"></div>
+        <div class="proj-overlay">
+          <span class="proj-year">2024</span>
+          <div class="proj-title" data-k="pr2_title">Titre du projet</div>
+          <div class="proj-fmt" data-k="pr2_fmt">Documentaire · Arte</div>
+        </div>
+        <span class="proj-tag" data-k="pr2_tag">Livré</span>
+      </div>
+      <div class="proj-card rv d2">
+        <div class="proj-thumb" style="background:linear-gradient(135deg,#00051a 0%,#0a1035 50%,#152050 100%)"></div>
+        <div class="proj-overlay">
+          <span class="proj-year">2023</span>
+          <div class="proj-title" data-k="pr3_title">Titre du projet</div>
+          <div class="proj-fmt" data-k="pr3_fmt">Clip musical · Direction artistique</div>
+        </div>
+        <span class="proj-tag" data-k="pr3_tag">Livré</span>
+      </div>
+    </div>
+    <p style="font-family:'Space Mono',monospace;font-size:10px;font-style:italic;color:var(--dim);margin-top:32px;line-height:1.7" class="rv" data-k="proj_note">Les titres et visuels sont remplacer par vos projets réels avant lancement.</p>
+  </div>
+</section>
+
+<section id="manifeste">
+  <div class="mani-in rv">
+    <span class="mani-tag" data-k="mani_tag">&#8212; Notre manifeste</span>
+    <p class="mani-body" id="mani_body">&#171; Nous ne faisons pas de la <strong>production</strong>.<br>Nous fabriquons des <strong>territoires &#233;motionnels</strong>.<br>Des espaces o&#249; les histoires<br>peuvent <strong>respirer, br&#251;ler, et durer</strong>. &#187;</p>
+    <div class="mani-sig"><span data-k="mani_sig">&#8212; Spring Vision Studio, Paris</span></div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="pad">
+    <div class="rv">
+      <span class="s-lbl" data-k="proc_lbl">&#8212; 04 / M&#233;thode</span>
+      <h2 class="s-h"><span data-k="proc_h1">Du brief &#224;</span><br><em data-k="proc_h2">l&#8217;image finale.</em></h2>
+    </div>
+    <div class="proc-w" id="proc-w"></div>
+  </div>
+</section>
+
+<section id="outils">
+  <div class="rv">
+    <span class="s-lbl" data-k="ot_lbl">&#8212; 05 / Outils &amp; Studio</span>
+    <h2 class="s-h"><span data-k="ot_h1">Des instruments</span><br><em data-k="ot_h2">&#224; votre service.</em></h2>
+  </div>
+  <p style="font-family:'Space Mono',monospace;font-size:11px;font-style:italic;color:var(--dim);line-height:1.82;max-width:560px;margin-top:16px" class="rv d1" data-k="ot_intro">Six outils con&#231;us pour vous aider &#224; pr&#233;parer, estimer et visualiser votre projet avant m&#234;me notre premier &#233;change.</p>
+  <div class="ot-tabs rv d1" id="ot-tabs" role="tablist"></div>
+  <div id="ot-panels">
+
+    <!-- BUDGET -->
+    <div class="ot-panel on" id="panel-budget">
+      <div class="bw">
+        <div class="g-form">
+          <div class="g-grp"><label class="g-lbl" data-k="b_t_lbl">Type de projet</label><select class="g-sel" id="b-type"></select></div>
+          <div class="g-grp"><label class="g-lbl"><span data-k="b_d_lbl">Jours de tournage</span>&#160;: <span id="b-days-v" style="color:var(--spring)">5</span></label><input class="g-slider" type="range" id="b-days" min="1" max="60" value="5"/></div>
+          <div class="g-grp"><label class="g-lbl" data-k="b_c_lbl">Taille de l&#8217;&#233;quipe</label><div class="g-rg" id="b-crew"></div></div>
+          <div class="g-grp"><label class="g-lbl" data-k="b_loc_lbl">D&#233;cors principaux</label><div class="g-rg" id="b-deco"></div></div>
+          <div class="g-grp"><label class="g-lbl" data-k="b_p_lbl">Post-production</label><div class="g-rg" id="b-post"></div></div>
+          <button class="g-btn" id="b-btn" type="button"><span class="g-lbl2" data-k="b_btn">Calculer l&#8217;estimation &#8599;</span></button>
+        </div>
+        <div>
+          <div class="g-result on" id="b-result">
+            <span class="g-result-lbl" data-k="b_res_lbl">&#8212; Estimation budg&#233;taire &#183; Spring Vision Studio</span>
+            <table class="b-tbl"><thead><tr><th data-k="b_th1">Poste</th><th data-k="b_th2">Estimation</th></tr></thead><tbody id="b-tbody"></tbody></table>
+            <p class="b-note" data-k="b_note">Fourchette indicative en euros HT. Estimation bas&#233;e sur les tarifs de la convention collective fran&#231;aise. Un devis pr&#233;cis n&#233;cessite un brief complet.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PLANNING -->
+    <div class="ot-panel" id="panel-planning">
+      <div class="pw">
+        <div class="g-form">
+          <div class="g-grp"><label class="g-lbl" data-k="pl_t_lbl">Type de projet</label><select class="g-sel" id="p-type"></select></div>
+          <div class="g-grp"><label class="g-lbl" data-k="pl_del_lbl">Date de livraison souhait&#233;e</label><input class="g-in" type="date" id="p-delivery" style="cursor:none"/></div>
+          <div class="g-grp"><label class="g-lbl"><span data-k="pl_d_lbl">Jours de tournage</span>&#160;: <span id="p-days-v" style="color:var(--spring)">5</span></label><input class="g-slider" type="range" id="p-days" min="1" max="60" value="5"/></div>
+          <button class="g-btn" id="p-btn" type="button"><span class="g-lbl2" data-k="pl_btn">G&#233;n&#233;rer le calendrier &#8599;</span></button>
+        </div>
+        <div>
+          <div class="g-result on" id="p-result">
+            <span class="g-result-lbl" data-k="pl_res_lbl">&#8212; Calendrier de production &#183; Spring Vision Studio</span>
+            <div id="p-timeline"></div>
+            <p class="b-note" style="margin-top:20px" data-k="pl_note">Dur&#233;es estimatives. Les dur&#233;es de post-production incluent les validations client.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ASPECT RATIOS -->
+    <div class="ot-panel" id="panel-aspect">
+      <p style="font-family:'Space Mono',monospace;font-size:11px;font-style:italic;color:var(--dim);margin-bottom:28px;line-height:1.8" data-k="ar_intro">Cliquez sur un format pour en explorer les usages, l&#8217;histoire et les &#339;uvres qui le d&#233;finissent.</p>
+      <div class="ar-grid" id="ar-grid"></div>
+      <div class="ar-det" id="ar-det">
+        <div class="ar-det-name" id="ar-det-name"></div>
+        <div class="ar-det-ratio" id="ar-det-ratio"></div>
+        <div class="ar-det-body" id="ar-det-body"></div>
+        <div class="ar-viz"><div class="ar-viz-r" id="ar-viz-r"></div></div>
+      </div>
+    </div>
+
+    <!-- MOOD -->
+    <div class="ot-panel" id="panel-mood">
+      <div class="mood-panel">
+        <p style="font-family:'Space Mono',monospace;font-size:11px;font-style:italic;color:var(--dim);margin-bottom:28px;line-height:1.8" data-k="mood_intro">S&#233;lectionnez jusqu&#8217;&#224; 3 ambiances visuelles. Obtenez une direction photographique instantan&#233;e ou enrichie par Claude.</p>
+        <div class="mood-grid" id="mood-grid"></div>
+        <div style="margin-bottom:20px"><span class="mood-sel-info" id="mood-info" data-k="mood_none">Aucune ambiance s&#233;lectionn&#233;e.</span></div>
+        <div class="mood-actions">
+          <button class="g-btn" id="mood-dir-btn" type="button"><span class="g-lbl2" data-k="mood_dir_btn">Direction photographique &#8599;</span><div class="spin"></div></button>
+          <button class="g-btn-ol" id="mood-ai-btn" type="button" data-k="mood_ai_btn">Enrichir avec Claude IA</button>
+        </div>
+        <p class="g-err" id="mood-err"></p>
+        <div class="g-result" id="mood-result">
+          <span class="g-result-lbl" data-k="mood_res_lbl">&#8212; Direction visuelle &#183; Spring Vision Studio</span>
+          <div class="mood-txt" id="mood-txt"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GOLDEN HOUR -->
+    <div class="ot-panel" id="panel-golden">
+      <div class="gh-sr-row">
+        <input class="gh-search" id="gh-search" type="text" autocomplete="off" spellcheck="false" data-k="gh_ph"/>
+        <div class="gh-sel-city" id="gh-sel-city">Paris, France</div>
+      </div>
+      <div class="gh-cont" id="gh-cont"></div>
+      <div class="gh-strip"><div class="gh-track" id="gh-track"></div></div>
+      <div class="gh-main">
+        <div>
+          <div class="gh-clock" id="gh-clock">--:--:--</div>
+          <div class="gh-date" id="gh-date">Paris</div>
+          <div class="gh-next" id="gh-next">
+            <div class="gh-next-lbl" data-k="gh_next_lbl">Prochaine fen&#234;tre lumineuse</div>
+            <div class="gh-next-name" id="gh-next-name" data-k="gh_calc">Calcul en cours&#8230;</div>
+            <div class="gh-next-time" id="gh-next-time">--:--</div>
+            <div class="gh-countdown" id="gh-countdown"></div>
+          </div>
+        </div>
+        <div>
+          <div class="gh-events" id="gh-events"></div>
+          <div class="gh-bar"><div class="gh-bar-fill" id="gh-bar-fill"></div><div class="gh-bar-now" id="gh-bar-now"></div></div>
+          <p class="gh-note" data-k="gh_note">La lumi&#232;re naturelle est la ressource la plus pr&#233;cieuse d&#8217;un tournage. Chaque directeur de la photographie organise sa journ&#233;e autour de ces fen&#234;tres d&#8217;or. Cet outil calcule en temps r&#233;el les horaires solaires pour toutes les grandes capitales du monde.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRESTATAIRES -->
+    <div class="ot-panel" id="panel-prest">
+      <div class="prest-wrap">
+        <div>
+          <p class="prest-intro" data-k="prest_i1">Spring Vision Studio constitue ses &#233;quipes projet par projet &#8212; avec des profils d&#8217;exception.</p>
+          <p class="prest-intro" data-k="prest_i2">Si vous &#234;tes un professionnel de la production et que vous souhaitez faire partie de notre r&#233;seau, d&#233;posez votre profil.</p>
+          <div class="prest-tags" id="prest-tags"></div>
+        </div>
+        <div class="g-form">
+          <div class="g-row">
+            <div class="g-grp"><label class="g-lbl" data-k="pr_fn">Pr&#233;nom *</label><input class="g-in" id="pr-prenom" type="text" data-k-ph="ph_fn"/></div>
+            <div class="g-grp"><label class="g-lbl" data-k="pr_ln">Nom *</label><input class="g-in" id="pr-nom" type="text" data-k-ph="ph_ln"/></div>
+          </div>
+          <div class="g-grp"><label class="g-lbl" data-k="pr_em">Email *</label><input class="g-in" id="pr-email" type="email" data-k-ph="ph_em"/></div>
+          <div class="g-grp"><label class="g-lbl" data-k="pr_role">M&#233;tier principal *</label><select class="g-sel" id="pr-role"></select></div>
+          <div class="g-grp"><label class="g-lbl" data-k="pr_exp">Exp&#233;rience</label><select class="g-sel" id="pr-exp"></select></div>
+          <div class="g-grp"><label class="g-lbl" data-k="pr_fmts">Formats ma&#238;tris&#233;s</label><div class="g-rg" id="pr-fmts"></div></div>
+          <div class="g-grp"><label class="g-lbl" data-k="pr_link">Portfolio / IMDb / Vimeo</label><input class="g-in" id="pr-link" type="url" placeholder="https://&#8230;"/></div>
+          <div class="g-grp"><label class="g-lbl" data-k="pr_msg">En quelques mots</label><textarea class="g-in" id="pr-msg" rows="3" style="resize:vertical;min-height:70px;line-height:1.65" data-k-ph="ph_msg"></textarea></div>
+          <button class="g-btn" id="pr-sub" type="button"><span class="g-lbl2" data-k="pr_btn">D&#233;poser mon profil &#8599;</span></button>
+          <p class="g-err" id="pr-err"></p>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /ot-panels -->
+</section>
+
+<section id="ai-brief">
+  <div class="ai-w">
+    <div class="rv">
+      <div class="ai-badge"><div class="ai-dot"></div><span data-k="ai_badge">LUMIA&#160;&#183;&#160;Intelligence cr&#233;ative Spring Vision</span></div>
+      <h2 class="ai-h2"><span data-k="ai_h1">Votre brief cr&#233;atif</span><br><em data-k="ai_h2">r&#233;dig&#233; en 30 secondes.</em></h2>
+      <p class="ai-sub" data-k="ai_sub">D&#233;crivez votre projet en quelques mots. LUMIA &#8212; l&#8217;intelligence cr&#233;ative de Spring Vision Studio &#8212; g&#233;n&#232;re un traitement cr&#233;atif complet et professionnel, pr&#234;t &#224; soumettre &#224; vos interlocuteurs.</p>
+    </div>
+    <div class="rv d2">
+      <div class="af">
+        <div class="af-r">
+          <div class="af-g"><label class="af-l" data-k="ai_t_lbl">Type de projet *</label><select class="af-s" id="ai-type"></select></div>
+          <div class="af-g"><label class="af-l" data-k="ai_m_lbl">Ambiance *</label><select class="af-s" id="ai-mood"></select></div>
+        </div>
+        <div class="af-g"><label class="af-l" data-k="ai_d_lbl">D&#233;crivez votre projet *</label><textarea class="af-t" id="ai-desc" rows="3" data-k-ph="ai_d_ph"></textarea></div>
+        <div class="af-r">
+          <div class="af-g"><label class="af-l" data-k="ai_r_lbl">R&#233;f&#233;rences</label><input class="af-i" id="ai-refs" type="text" data-k-ph="ai_r_ph"/></div>
+          <div class="af-g"><label class="af-l" data-k="ai_b_lbl">Budget estim&#233;</label><select class="af-s" id="ai-budget"></select></div>
+        </div>
+        <button class="af-btn" id="ai-btn" type="button"><span class="lbl" data-k="ai_gen">G&#233;n&#233;rer le brief &#8599;</span><div class="spin"></div></button>
+        <p class="af-err" id="ai-err" role="alert"></p>
+        <div class="af-res" id="ai-res">
+          <span class="af-res-lbl" data-k="ai_res_lbl">&#8212; Brief cr&#233;atif&#160;&#183;&#160;LUMIA&#160;&#183;&#160;Spring Vision Studio</span>
+          <div class="af-res-txt" id="ai-res-txt"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="ct-w">
+    <div class="rv">
+      <h2 class="ct-h2"><span data-k="ct_h1">Votre projet m&#233;rite</span><br><span data-k="ct_h2">d&#8217;&#234;tre&#160;</span><em data-k="ct_h3">entre de bonnes mains.</em></h2>
+      <p class="ct-body" data-k="ct_body">Vous avez un script, une id&#233;e, un budget ou simplement une conviction. C&#8217;est suffisant pour commencer. &#201;crivez-nous &#8212; nous lisons chaque message et nous r&#233;pondons dans les 24 heures.</p>
+      <div class="ct-lks">
+        <a href="mailto:infos@springvision.studio" class="ct-lk">
+          <span class="ct-ico"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" stroke="currentColor" stroke-width="1"><rect x="1" y="1" width="12" height="9" rx="1"/><polyline points="1,1 7,6 13,1"/></svg></span>
+          infos@springvision.studio
+        </a>
+        <span class="ct-lk">
+          <span class="ct-ico"><svg width="11" height="14" viewBox="0 0 11 14" fill="none" stroke="currentColor" stroke-width="1"><path d="M5.5 1C3 1 1 3.2 1 6C1 9.2 5.5 13 5.5 13S10 9.2 10 6C10 3.2 8 1 5.5 1Z"/><circle cx="5.5" cy="5.8" r="1.8"/></svg></span>
+          Paris, France &#8212; springvision.studio
+        </span>
+      </div>
+    </div>
+    <div class="rv d2">
+      <div class="ct-f">
+        <div class="cf-r">
+          <div class="cf-g"><label class="cf-l" data-k="cf_fn">Pr&#233;nom *</label><input class="cf-i" id="c-prenom" type="text" data-k-ph="ph_fn" required/></div>
+          <div class="cf-g"><label class="cf-l" data-k="cf_ln">Nom *</label><input class="cf-i" id="c-nom" type="text" data-k-ph="ph_ln" required/></div>
+        </div>
+        <div class="cf-g"><label class="cf-l" data-k="cf_em">Email *</label><input class="cf-i" id="c-email" type="email" data-k-ph="ph_em" required/></div>
+        <div class="cf-g"><label class="cf-l" data-k="cf_soc">Soci&#233;t&#233; / Structure</label><input class="cf-i" id="c-soc" type="text" data-k-ph="cf_soc_ph"/></div>
+        <div class="cf-g"><label class="cf-l" data-k="cf_type">Type de projet *</label><select class="cf-s" id="c-type" required></select></div>
+        <div class="cf-g"><label class="cf-l" data-k="cf_msg">Votre projet *</label><textarea class="cf-t" id="c-msg" rows="4" data-k-ph="cf_msg_ph" required></textarea></div>
+        <button class="cf-sb" id="ct-sub" type="button" data-k="cf_btn">Envoyer le brief&#160;&#8599;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="ft-in">
+    <div>
+      <span class="ft-logo">Spring Vision Studio</span>
+      <p class="ft-tag" id="ft_tag">L&#224; o&#249; chaque
+image prend vie.</p>
+      <div class="ft-soc">
+        <a href="https://www.instagram.com/spring.vision.studio?igsh=MWttcWF2emMycTFvaQ==" target="_blank" rel="noopener" class="ft-sl" aria-label="Instagram"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a href="https://www.linkedin.com/company/spring-vision-studio/" target="_blank" rel="noopener" class="ft-sl" aria-label="LinkedIn"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+        
+      </div>
+    </div>
+    <div><p class="ft-h" data-k="ft_h1">Disciplines</p><ul class="ft-ul" id="ft-disc"></ul></div>
+    <div><p class="ft-h" data-k="ft_h2">Studio</p><ul class="ft-ul" id="ft-studio"></ul></div>
+    <div><p class="ft-h" data-k="ft_h3">Contact</p><ul class="ft-ul" id="ft-contact"></ul></div>
+  </div>
+  <div class="ft-bot">
+    <p class="ft-copy" data-k="ft_copy">&#169; 2025 Spring Vision Studio. Tous droits r&#233;serv&#233;s.</p>
+    <span class="ft-dom">springvision<span>.studio</span></span>
+  </div>
+</footer>
+
+<script>
+/* ======================================================
+   SPRING VISION STUDIO — Bilingue FR / EN
+   Fran&#231;ais par d&#233;faut · Business English professionnel
+   Toggle FR|EN dans la nav
+   ====================================================== */
+'use strict';
+
+// ── TRANSLATIONS ──────────────────────────────────────
+var T = {
+fr: {
+  nav_cta: 'D\u00e9marrer un projet\u00a0\u2197',
+  m1:'Notre vision', m2:'Disciplines', m3:'Engagements', m4:'M\u00e9thode', m5:'Outils\u00a0&\u00a0Studio', m6:'Brief IA', m7:'Contact',
+  scroll:'Scroll',
+  h_eye:'— Maison de Production Cin\u00e9matographique\u00a0\u00b7\u00a0Paris',
+  h_desc:'Votre projet apporte la vision.\nNous apportons l\u2019ex\u00e9cution.\n\u2014 Film. S\u00e9rie. Clip. Publicit\u00e9.\nDocumentaire. Court-M\u00e9trage.',
+  sr_lbl:'\u2014 00\u00a0/\u00a0Showreel', sr_h1:'Deux minutes.', sr_h2:'Tout ce que nous sommes.',
+  sr_hint:'Cliquez pour lire\u00a0\u2193',
+  v_lbl:'\u2014 01\u00a0/\u00a0Notre vision', v_h1:'Pourquoi nous', v_h2:'existons.',
+  v_stmt:'\u00ab Une maison de production n\u2019est pas<br>une <strong>cha\u00eene d\u2019assemblage</strong>.<br>C\u2019est un <strong>regard sur le monde</strong>. \u00bb',
+  v_b1:'Spring Vision Studio na\u00eet d\u2019une conviction simple\u00a0: chaque projet m\u00e9rite une attention totale, du premier mot du script jusqu\u2019\u00e0 la derni\u00e8re image livr\u00e9e. Nous ne sommes pas un prestataire. Nous sommes des partenaires cr\u00e9atifs.',
+  v_b2:'Fond\u00e9e \u00e0 Paris, notre maison r\u00e9unit des profils form\u00e9s aux plus hautes exigences du cin\u00e9ma, de la publicit\u00e9 et des nouvelles formes narratives. Nous accueillons votre vision avec la rigueur d\u2019un artisan et l\u2019ambition d\u2019un auteur.',
+  v_b3:'Vous apportez le projet et son financement. Nous apportons le reste \u2014 talent, m\u00e9thode, obsession du d\u00e9tail.',
+  vi1:'Un regard exigeant sur chaque format', vi2:'La rigueur comme seule r\u00e8gle',
+  vi3:'Votre projet au centre de tout', vi4:'Des \u00e9quipes s\u00e9lectionn\u00e9es projet par projet',
+  vi5:'Transparence totale \u00e0 chaque \u00e9tape', vi6:'Bas\u00e9s \u00e0 Paris, disponibles partout',
+  svc_lbl:'\u2014 02\u00a0/\u00a0Disciplines', svc_h1:'Ce que nous', svc_h2:'produisons.',
+  svc:[
+    {num:'\u2014 01', name:'Cin\u00e9ma & Long-M\u00e9trage', desc:'Films de fiction, documentaires, films d\u2019auteur. De la pr\u00e9-production \u00e0 la livraison du master DCP, nous accompagnons chaque phase avec une exigence de festival.', tags:['Fiction','Documentaire','Festival','DCP']},
+    {num:'\u2014 02', name:'S\u00e9rie & Streaming', desc:'S\u00e9ries dramatiques, mini-s\u00e9ries, formats courts. Nous ma\u00eetrisons les codes narratifs des plateformes et les exigences techniques des diffuseurs europ\u00e9ens.', tags:['Netflix','Canal+','OCS','Arte']},
+    {num:'\u2014 03', name:'Clip Musical', desc:'Direction artistique forte, esth\u00e9tique cisel\u00e9e. Chaque clip est trait\u00e9 comme un court-m\u00e9trage \u2014 une pi\u00e8ce visuelle autonome qui prolonge l\u2019univers de l\u2019artiste.', tags:['Direction artistique','Chor\u00e9graphie','VFX']},
+    {num:'\u2014 04', name:'Publicit\u00e9 & Brand Content', desc:'Spots TV, films de marque, campagnes digitales. Du concept \u00e0 la livraison tous formats, nous cr\u00e9ons des films qui vendent en racontant quelque chose de vrai.', tags:['TVC','Brand Film','Digital','Social']},
+    {num:'\u2014 05', name:'Documentaire', desc:'Investigation, portrait, observationnel. Nous produisons des documentaires qui trouvent leur public \u2014 sur Arte, en salle, sur les plateformes ou en circuit festival.', tags:['Investigation','Portrait','Soci\u00e9t\u00e9']},
+    {num:'\u2014 06', name:'Court-M\u00e9trage & Cr\u00e9ation', desc:'Formats courts, \u0153uvres hybrides, projets exp\u00e9rimentaux. L\u2019espace de libert\u00e9 absolue o\u00f9 une vision pure peut exister sans compromis narratif ni commercial.', tags:['Auteur','Exp\u00e9rimental','Festival']}
+  ],
+  pr_lbl:'\u2014 03\u00a0/\u00a0Nos engagements', pr_h1:'Ce que vous pouvez', pr_h2:'attendre de nous.',
+  pr:[
+    {t:'Un interlocuteur, une vision', b:'Du premier brief \u00e0 la livraison finale, vous avez un fil direct \u2014 sans couches d\u2019interm\u00e9diaires, sans dilution du message. Votre projet est trait\u00e9 par ceux qui l\u2019ont compris d\u00e8s le d\u00e9part.'},
+    {t:'Des \u00e9quipes sur mesure', b:'Nous constituons l\u2019\u00e9quipe id\u00e9ale pour votre projet sp\u00e9cifique. R\u00e9alisateur, directeur de la photographie, chef d\u00e9corateur, monteur \u2014 chaque profil est s\u00e9lectionn\u00e9 avec soin, pas assign\u00e9 par d\u00e9faut.'},
+    {t:'Transparence budg\u00e9taire totale', b:'Vous apportez le budget. Nous l\u2019optimisons avec une rigueur absolue. Chaque poste de d\u00e9pense est justifi\u00e9, document\u00e9, discut\u00e9. Aucune mauvaise surprise en cours de route.'},
+    {t:'L\u2019obsession du bien faire', b:'Chaque projet que nous acceptons sera le meilleur travail que nous ayons produit \u2014 parce que c\u2019est la seule fa\u00e7on que nous connaissons de travailler. Cette exigence n\u2019est pas une posture, c\u2019est notre architecture.'},
+    {t:'Calendrier tenu, d\u00e9lais respect\u00e9s', b:'Une production mal planifi\u00e9e est une production qui d\u00e9rive. Notre m\u00e9thode repose sur une pr\u00e9-production rigoureuse qui prot\u00e8ge le calendrier de tournage et les d\u00e9lais de livraison.'},
+    {t:'Votre projet reste le v\u00f4tre', b:'Nous produisons, nous ne prenons pas le contr\u00f4le. Votre vision cr\u00e9ative et \u00e9ditoriale est respect\u00e9e \u00e0 chaque \u00e9tape. Notre r\u00f4le est de vous donner les moyens de la r\u00e9aliser au plus haut niveau.'}
+  ],
+  mani_tag:'\u2014 Notre manifeste',
+  mani_body:'\u00ab Nous ne faisons pas de la <strong>production</strong>.<br>Nous fabriquons des <strong>territoires \u00e9motionnels</strong>.<br>Des espaces o\u00f9 les histoires<br>peuvent <strong>respirer, br\u00fbler, et durer</strong>. \u00bb',
+  mani_sig:'\u2014 Spring Vision Studio, Paris',
+  proc_lbl:'\u2014 04\u00a0/\u00a0M\u00e9thode', proc_h1:'Du brief \u00e0', proc_h2:'l\u2019image finale.',
+  proc:[
+    {n:'01.', t:'D\u00e9veloppement', d:'Lecture et analyse de votre projet. Note d\u2019intention, bible artistique, d\u00e9coupage technique. Nous construisons la colonne vert\u00e9brale cr\u00e9ative avant de toucher la moindre cam\u00e9ra.'},
+    {n:'02.', t:'Pr\u00e9-production', d:'Constitution des \u00e9quipes, casting, rep\u00e9rages, direction artistique, storyboard, plan de travail. La qualit\u00e9 du tournage se joue ici. Nous ne laissons rien au hasard.'},
+    {n:'03.', t:'Tournage', d:'Direction d\u2019acteurs, photographie, son direct, r\u00e9gie. L\u2019instant de cr\u00e9ation dans toute son intensit\u00e9, encadr\u00e9 par une rigueur de production qui prot\u00e8ge chaque jour.'},
+    {n:'04.', t:'Post-production & Livraison', d:'Montage, \u00e9talonnage, mixage son, VFX si n\u00e9cessaire. Livraison de tous les masters aux formats requis. Rien ne sort sans validation commune.'}
+  ],
+  ot_lbl:'\u2014 05\u00a0/\u00a0Outils\u00a0&\u00a0Studio', ot_h1:'Des instruments', ot_h2:'\u00e0 votre service.',
+  ot_intro:'Six outils con\u00e7us pour vous aider \u00e0 pr\u00e9parer, estimer et visualiser votre projet avant m\u00eame notre premier \u00e9change.',
+  tabs:['Estimateur de budget','Calendrier de production','Formats cin\u00e9ma','S\u00e9lecteur d\u2019ambiance','Heure dor\u00e9e\u00a0\u00b7\u00a0Monde','Rejoindre le studio'],
+  b_t_lbl:'Type de projet', b_d_lbl:'Jours de tournage', b_c_lbl:'Taille de l\u2019\u00e9quipe',
+  b_loc_lbl:'D\u00e9cors principaux', b_p_lbl:'Post-production',
+  b_btn:'Calculer l\u2019estimation \u2197',
+  b_res_lbl:'\u2014 Estimation budg\u00e9taire \u00b7 Spring Vision Studio',
+  b_th1:'Poste', b_th2:'Estimation',
+  b_note:'Fourchette indicative en euros HT. Estimation bas\u00e9e sur les tarifs de la convention collective fran\u00e7aise. Un devis pr\u00e9cis n\u00e9cessite un brief complet.',
+  b_type_opts:['Clip Musical','Publicit\u00e9 / TVC','Court-M\u00e9trage','Documentaire','S\u00e9rie (par \u00e9pisode)','Long-M\u00e9trage'],
+  b_crew_opts:['Compacte (5\u201310)','Standard (15\u201325)','Grande (30\u201350)'],
+  b_deco_opts:['Int\u00e9rieur naturel','Ext\u00e9rieur','Studio','International'],
+  b_post_opts:['Standard','Avanc\u00e9','VFX / Animation'],
+  b_rows:['\u00c9quipe technique & artistique','Mat\u00e9riel & \u00e9quipement','D\u00e9cors, lieux, costumes','R\u00e9gie & logistique','Post-production','Impr\u00e9vus (12%)'],
+  b_total:'Total estim\u00e9',
+  pl_t_lbl:'Type de projet', pl_del_lbl:'Date de livraison souhait\u00e9e', pl_d_lbl:'Jours de tournage',
+  pl_btn:'G\u00e9n\u00e9rer le calendrier \u2197',
+  pl_res_lbl:'\u2014 Calendrier de production \u00b7 Spring Vision Studio',
+  pl_note:'Dur\u00e9es estimatives. Les dur\u00e9es de post-production incluent les validations client.',
+  pl_type_opts:['Clip Musical','Publicit\u00e9 / TVC','Court-M\u00e9trage','Documentaire','S\u00e9rie (1 \u00e9pisode)','Long-M\u00e9trage'],
+  pl_phases:{
+    0:[{n:'Post-production & Livraison',d:14},{n:'Tournage',d:null},{n:'Pr\u00e9-production',d:10},{n:'D\u00e9veloppement',d:7}],
+    1:[{n:'Post-production & Livraison',d:21},{n:'Tournage',d:null},{n:'Pr\u00e9-production',d:14},{n:'D\u00e9veloppement',d:10}],
+    2:[{n:'Post-production & Livraison',d:42},{n:'Tournage',d:null},{n:'Pr\u00e9-production',d:28},{n:'\u00c9criture',d:21}],
+    3:[{n:'Post-production & Livraison',d:56},{n:'Tournage',d:null},{n:'Pr\u00e9-production',d:28},{n:'D\u00e9veloppement',d:42}],
+    4:[{n:'Post-production & Livraison',d:56},{n:'Tournage',d:null},{n:'Pr\u00e9-production',d:42},{n:'D\u00e9veloppement',d:30}],
+    5:[{n:'Post-production & Distribution',d:112},{n:'Tournage',d:null},{n:'Pr\u00e9-production',d:56},{n:'D\u00e9veloppement',d:60}]
+  },
+  pl_kick:'R\u00e9union de lancement', pl_kick_d:'Validation du brief, pr\u00e9sentation des \u00e9quipes et du plan de travail.',
+  pl_deliv:'Livraison finale', pl_deliv_d:'Masters livr\u00e9s dans tous les formats convenus. Validation finale sign\u00e9e.',
+  pl_shoot_d:' jour(s) de tournage.', pl_work_d:' jour(s) de travail.',
+  ar_intro:'Cliquez sur un format pour en explorer les usages, l\u2019histoire et les \u0153uvres qui le d\u00e9finissent.',
+  mood_intro:'S\u00e9lectionnez jusqu\u2019\u00e0 3 ambiances visuelles. Obtenez une direction photographique instantan\u00e9e \u2014 ou enrichie par LUMIA.',
+  mood_none:'Aucune ambiance s\u00e9lectionn\u00e9e.', mood_sel_x:' ambiance(s)\u00a0:',
+  mood_dir_btn:'Direction photographique \u2197', mood_ai_btn:'Enrichir avec LUMIA',
+  mood_res_lbl:'\u2014 Direction visuelle \u00b7 Spring Vision Studio',
+  mood_names:['Noir Absolu','Lumi\u00e8re Nordique','Chaleur M\u00e9diterran\u00e9e','N\u00e9on Urbain','\u00c9pure Contemporaine','R\u00e9aliste & Brut','Fantastique & Onirique','M\u00e9lancolique','Brutalisme'],
+  mood_subs:['Ombres & contraste extr\u00eame','Lumi\u00e8re plate, ciel couvert','Dorure & grain pellicule','Nuit artificielle & couleurs vives','Minimalisme & espaces vides','Cam\u00e9ra \u00e0 l\u2019\u00e9paule, lumi\u00e8re disponible','Haze, flare & profondeur irr\u00e9elle','Temps long & couleurs pass\u00e9es','Architecture brute & g\u00e9om\u00e9trie'],
+  mood_dir:['Noir am\u00e9ricain r\u00e9invent\u00e9. Exposition -2 EV, source unique. Highlights clip\u00e9s. Palette\u00a0: noir profond, blanc pur. Zeiss Master Prime pleine ouverture. \u00c9talonnage\u00a0: courbe S prononc\u00e9e. R\u00e9f\u00e9rences\u00a0: Kubrick (Eyes Wide Shut), Fincher (Seven).','Lumi\u00e8re scandinave de novembre. D\u00e9saturation 60%, 4200K. Ciel comme r\u00e9flecteur g\u00e9ant. Leica Summilux. \u00c9talonnage\u00a0: lift bleu-gris, pas de crushed blacks. R\u00e9f\u00e9rences\u00a0: Bergman, Roy Andersson, Trier.','Kodak 500T \u00e0 3200K. Grain fort. 3800\u20134800K. Highlights l\u00e9g\u00e8rement orange-satur\u00e9s. Cooke S4. \u00c9talonnage\u00a0: lift ambre, ombres chocolat fonc\u00e9. R\u00e9f\u00e9rences\u00a0: Sorrentino, Guadagnino.','Nuit r\u00e9elle, sources dures\u00a0: n\u00e9ons, LED, sodium. Saturation maximale highlights. f/1.4. Rec.2020. R\u00e9f\u00e9rences\u00a0: Wong Kar-wai, Refn, No\u00e9.','Lumi\u00e8re par soustraction. Fen\u00eatres comme seules sources. Espace n\u00e9gatif narratif. Palette ivoire, gris chaud. Leica R. R\u00e9f\u00e9rences\u00a0: Haneke, Lanthimos, Coppola.','Lumi\u00e8re disponible enrichie. Cam\u00e9ra port\u00e9e. -1 EV int\u00e9rieur. LUT Kodak Vision 2500. R\u00e9f\u00e9rences\u00a0: Dardenne, Andrea Arnold, Ken Loach.','Diffusion\u00a0: filtres Tiffen Black Pro-Mist 1/4. Halos autour de chaque source. f/1.2 sur plans larges. R\u00e9f\u00e9rences\u00a0: del Toro, Tarkovsky, Gondry.','Lumi\u00e8re de fin d\u2019apr\u00e8s-midi d\u00e9clinante. Plans longs 4s+. Leica R. Blacks \u00e0 8 IRE, saturation -15. R\u00e9f\u00e9rences\u00a0: Malick, Edward Yang, Bi Gan.','B\u00e9ton, acier, verre\u00a0: les mat\u00e9riaux font la lumi\u00e8re. Contrejours, g\u00e9om\u00e9trie sym\u00e9trique. 21\u201335mm. Contraste pouss\u00e9. R\u00e9f\u00e9rences\u00a0: Tati, Kie\u015blowski, Reygadas.'],
+  gh_ph:'Rechercher une ville ou un pays\u2026',
+  gh_cont:['Toutes','Europe','Am\u00e9riques','Asie','Afrique','Oc\u00e9anie'],
+  gh_next_lbl:'Prochaine fen\u00eatre lumineuse', gh_calc:'Calcul en cours\u2026',
+  gh_note:'La lumi\u00e8re naturelle est la ressource la plus pr\u00e9cieuse d\u2019un tournage. Chaque directeur de la photographie organise sa journ\u00e9e autour de ces fen\u00eatres d\u2019or. Cet outil calcule en temps r\u00e9el les horaires solaires pour toutes les grandes capitales du monde.',
+  gh_ev_names:['Heure bleue \u2014 matin','Heure dor\u00e9e \u2014 matin','Fin de l\u2019heure dor\u00e9e','Heure dor\u00e9e \u2014 soir','Coucher de soleil','Heure bleue \u2014 soir'],
+  gh_ev_descs:['Ciel indigo, lumi\u00e8re diffuse','Lumi\u00e8re rasante, teintes chaudes','Lumi\u00e8re directe, diffusion n\u00e9cessaire','La plus belle lumi\u00e8re du jour','Horizon embras\u00e9, golden hour finale','Ciel cyan profond, 20\u00a0min pr\u00e9cieuses'],
+  gh_in:'Dans\u00a0', gh_h:'h\u00a0', gh_m:'m\u00a0', gh_s:'s', gh_tomorrow:'Demain', gh_next_cycle:'Prochain cycle solaire',
+  prest_i1:'Spring Vision Studio constitue ses \u00e9quipes projet par projet \u2014 avec des profils d\u2019exception. Directeurs de la photographie, r\u00e9alisateurs, monteurs, chefs d\u00e9corateurs, ing\u00e9nieurs du son, r\u00e9gisseurs.',
+  prest_i2:'Si vous \u00eates un professionnel de la production et que vous souhaitez faire partie de notre r\u00e9seau, d\u00e9posez votre profil. Nous constituons une base s\u00e9lective de talents avec qui nous souhaitons collaborer.',
+  prest_tags:['Directeur de la photographie','R\u00e9alisateur','Monteur','Chef d\u00e9corateur','Ing\u00e9nieur du son','R\u00e9gisseur','Directeur de casting','Maquilleur','Costumier','\u00c9talonneur','VFX / Motion Design'],
+  pr_fn:'Pr\u00e9nom *', pr_ln:'Nom *', pr_em:'Email professionnel *', pr_role:'M\u00e9tier principal *',
+  pr_exp:'Ann\u00e9es d\u2019exp\u00e9rience', pr_fmts:'Formats ma\u00eetris\u00e9s', pr_link:'Portfolio / IMDb / Vimeo',
+  pr_msg:'En quelques mots', pr_btn:'D\u00e9poser mon profil \u2197',
+  ph_fn:'Jean', ph_ln:'Dupont', ph_em:'jean@prod.fr', ph_msg:'Ce qui vous distingue\u2026',
+  pr_role_opts:['\u2014 S\u00e9lectionner\u2026','Directeur de la photographie','R\u00e9alisateur','Monteur','Chef d\u00e9corateur','Ing\u00e9nieur du son','R\u00e9gisseur g\u00e9n\u00e9ral','Directeur de casting','Maquilleur / Coiffeur','Costumier','\u00c9talonneur','VFX / Motion Design','Directeur artistique','Autre'],
+  pr_exp_opts:['\u2014 S\u00e9lectionner\u2026','1\u20133 ans','3\u20137 ans','7\u201315 ans','Plus de 15 ans'],
+  pr_fmts_opts:['Cin\u00e9ma','S\u00e9rie','Publicit\u00e9','Clip','Documentaire','Court-M\u00e9trage'],
+  pr_sub_ok:'\u2713 Profil d\u00e9pos\u00e9 \u2014 Merci', pr_sub_req:'Remplissez les champs requis.',
+  ai_badge:'LUMIA\u00a0\u00b7\u00a0Intelligence cr\u00e9ative Spring Vision',
+  ai_h1:'Votre brief cr\u00e9atif', ai_h2:'r\u00e9dig\u00e9 en 30 secondes.',
+  ai_sub:'D\u00e9crivez votre projet en quelques mots. LUMIA \u2014 l\u2019intelligence cr\u00e9ative de Spring Vision Studio \u2014 g\u00e9n\u00e8re un traitement complet et professionnel, pr\u00eat \u00e0 soumettre \u00e0 vos interlocuteurs.',
+  ai_t_lbl:'Type de projet *', ai_m_lbl:'Ambiance *', ai_d_lbl:'D\u00e9crivez votre projet *',
+  ai_r_lbl:'R\u00e9f\u00e9rences', ai_b_lbl:'Budget estim\u00e9', ai_k_lbl:'Activation LUMIA',
+  ai_k_note:'Acc\u00e8s LUMIA configur\u00e9 pour Spring Vision Studio.',
+  ai_d_ph:'Ex\u00a0: Un thriller psychologique sur un chef cuisinier \u00e9toil\u00e9 qui perd progressivement la raison\u2026',
+  ai_r_ph:'Kubrick, Villeneuve, Haneke\u2026', ai_k_ph:'Cl\u00e9 d\u2019activation LUMIA',
+  ai_gen:'G\u00e9n\u00e9rer le brief \u2197',
+  ai_res_lbl:'\u2014 Brief cr\u00e9atif\u00a0\u00b7\u00a0LUMIA\u00a0\u00b7\u00a0Spring Vision Studio',
+  ai_type_opts:['\u2014 S\u00e9lectionner\u2026','Long-M\u00e9trage de Cin\u00e9ma','S\u00e9rie TV / Streaming','Clip Musical','Film Publicitaire','Documentaire','Court-M\u00e9trage','Brand Content'],
+  ai_mood_opts:['\u2014 Registre\u2026','Sombre & Intense','Lumineux & Po\u00e9tique','R\u00e9aliste & Brut','Fantastique & Onirique','\u00c9l\u00e9gant & Raffin\u00e9','Explosif & Dynamique','M\u00e9lancolique & Contemplatif'],
+  ai_budget_opts:['\u2014 Fourchette\u2026','Moins de 100\u00a0K\u20ac','100\u00a0K\u20ac \u2013 500\u00a0K\u20ac','500\u00a0K\u20ac \u2013 2\u00a0M\u20ac','2\u00a0M\u20ac \u2013 10\u00a0M\u20ac','Plus de 10\u00a0M\u20ac'],
+  ai_err_desc:'D\u00e9crivez votre projet.', ai_err_type:'S\u00e9lectionnez le type.', ai_err_mood:'S\u00e9lectionnez l\u2019ambiance.', ai_err_key:'Cl\u00e9 API invalide.',
+  ai_prompt:'Tu es le directeur cr\u00e9atif de Spring Vision Studio, maison de production cin\u00e9matographique \u00e0 Paris. R\u00e9dige un traitement cr\u00e9atif complet en fran\u00e7ais. Texte propre, sans markdown. Structure\u00a0: TITRE \u2014 INTENTION ARTISTIQUE \u2014 UNIVERS VISUEL \u2014 DIRECTION NARRATIVE \u2014 R\u00c9F\u00c9RENCES CIN\u00c9MATOGRAPHIQUES \u2014 CALENDRIER \u2014 POSITIONNEMENT. Commence par le titre.',
+  ct_h1:'Votre projet m\u00e9rite', ct_h2:'d\u2019\u00eatre\u00a0', ct_h3:'entre de bonnes mains.',
+  ct_body:'Vous avez un script, une id\u00e9e, un budget ou simplement une conviction. C\u2019est suffisant pour commencer. \u00c9crivez-nous \u2014 nous lisons chaque message et nous r\u00e9pondons dans les 24 heures.',
+  cf_fn:'Pr\u00e9nom *', cf_ln:'Nom *', cf_em:'Email *', cf_soc:'Soci\u00e9t\u00e9 / Structure',
+  cf_soc_ph:'Votre structure', cf_type:'Type de projet *', cf_msg:'Votre projet *',
+  cf_msg_ph:'D\u00e9crivez votre projet en quelques lignes \u2014 format, sujet, ambition, d\u00e9lai\u2026',
+  cf_btn:'Envoyer le brief\u00a0\u2197',
+  cf_type_opts:['\u2014 S\u00e9lectionner\u2026','Long-M\u00e9trage / Cin\u00e9ma','S\u00e9rie TV / Streaming','Court-M\u00e9trage','Clip Musical','Film Publicitaire / TVC','Documentaire','Brand Content / Corporate','Production Ex\u00e9cutive'],
+  ct_sub_ok:'\u2713 Message re\u00e7u \u2014 R\u00e9ponse sous 24h', ct_sub_req:'Remplissez les champs requis.',
+  ft_tag:'L\u00e0 o\u00f9 chaque\nimage prend vie.', ft_h1:'Disciplines', ft_h2:'Studio', ft_h3:'Contact',
+  ft_copy:'\u00a9 2025 Spring Vision Studio. Tous droits r\u00e9serv\u00e9s.',
+  ft_disc:['Cin\u00e9ma & Long-M\u00e9trage','S\u00e9rie & Streaming','Clip Musical','Publicit\u00e9 & Brand','Documentaire','Court-M\u00e9trage'],
+  ft_studio:['Notre vision','Nos engagements','M\u00e9thode','Outils & Studio','Brief IA'],
+  ft_studio_h:['#vision','#promesse','#process','#outils','#ai-brief'],
+  ft_contact:['D\u00e9marrer un projet','infos@springvision.studio','Rejoindre le studio','Mentions l\u00e9gales'],
+  ft_contact_h:['#contact','mailto:infos@springvision.studio','#outils','legal'],
+  proj_lbl:'\u2014 06\u00a0/\u00a0R\u00e9f\u00e9rences', proj_h1:'Ce que nous', proj_h2:'avons produit.',
+  pr1_title:'Titre du projet', pr1_fmt:'Long-m\u00e9trage\u00a0\u00b7\u00a0Fiction', pr1_tag:'Post-prod',
+  pr2_title:'Titre du projet', pr2_fmt:'Documentaire\u00a0\u00b7\u00a0Arte', pr2_tag:'Livr\u00e9',
+  pr3_title:'Titre du projet', pr3_fmt:'Clip musical\u00a0\u00b7\u00a0Direction artistique', pr3_tag:'Livr\u00e9',
+  proj_note:'Les titres et visuels sont \u00e0 remplacer par vos projets r\u00e9els avant lancement.',
+  ticker:['Long-M\u00e9trage','S\u00e9rie TV','Clip Musical','Publicit\u00e9','Documentaire','Court-M\u00e9trage','Brand Content','Production Ex\u00e9cutive','Long-M\u00e9trage','S\u00e9rie TV','Clip Musical','Publicit\u00e9','Documentaire','Court-M\u00e9trage','Brand Content','Production Ex\u00e9cutive'],
+  cur_lbl:'VOIR\u00a0\u2197'
+},
+en: {
+  nav_cta: 'Start a project\u00a0\u2197',
+  m1:'Our vision', m2:'Disciplines', m3:'Commitments', m4:'Method', m5:'Tools\u00a0&\u00a0Studio', m6:'AI Brief', m7:'Contact',
+  scroll:'Scroll',
+  h_eye:'\u2014 Cinematic Production House\u00a0\u00b7\u00a0Paris',
+  h_desc:'Your project brings the vision.\nWe deliver the execution.\n\u2014 Film. Series. Music Video. Advertising.\nDocumentary. Short Film.',
+  sr_lbl:'\u2014 00\u00a0/\u00a0Showreel', sr_h1:'Two minutes.', sr_h2:'Everything we are.',
+  sr_hint:'Click to play\u00a0\u2193',
+  v_lbl:'\u2014 01\u00a0/\u00a0Our vision', v_h1:'Why we', v_h2:'exist.',
+  v_stmt:'\u00ab A production house is not<br>an <strong>assembly line</strong>.<br>It is a <strong>way of seeing the world</strong>. \u00bb',
+  v_b1:'Spring Vision Studio was founded on a simple conviction: every project deserves total commitment, from the first word of the script to the last frame delivered. We are not a vendor. We are creative partners.',
+  v_b2:'Based in Paris, our house brings together professionals trained to the highest standards of cinema, advertising and emerging narrative forms. We approach your vision with the rigour of a craftsman and the ambition of an auteur.',
+  v_b3:'You bring the project and its financing. We bring everything else \u2014 talent, method, and an obsession with excellence.',
+  vi1:'An exacting eye on every format', vi2:'Rigour as the sole standard',
+  vi3:'Your project at the centre of everything', vi4:'Teams assembled project by project',
+  vi5:'Full transparency at every stage', vi6:'Based in Paris, available worldwide',
+  svc_lbl:'\u2014 02\u00a0/\u00a0Disciplines', svc_h1:'What we', svc_h2:'produce.',
+  svc:[
+    {num:'\u2014 01', name:'Cinema & Feature Film', desc:'Fiction, documentary and auteur films. From pre-production through to DCP master delivery, we accompany every phase with festival-grade standards.', tags:['Fiction','Documentary','Festival','DCP']},
+    {num:'\u2014 02', name:'Series & Streaming', desc:'Drama series, mini-series, short-form formats. We command the narrative codes of streaming platforms and the technical demands of European broadcasters.', tags:['Netflix','Canal+','OCS','Arte']},
+    {num:'\u2014 03', name:'Music Video', desc:'Bold art direction, refined aesthetics. Every clip is approached as a short film \u2014 a self-contained visual statement that extends the artist\u2019s world.', tags:['Art direction','Choreography','VFX']},
+    {num:'\u2014 04', name:'Advertising & Brand Content', desc:'TV commercials, brand films, digital campaigns. From concept to multi-format delivery, we craft films that convert by telling something true.', tags:['TVC','Brand Film','Digital','Social']},
+    {num:'\u2014 05', name:'Documentary', desc:'Investigation, portrait, observational. We produce documentaries that find their audience \u2014 on Arte, in theatres, on streaming platforms or at festivals.', tags:['Investigation','Portrait','Society']},
+    {num:'\u2014 06', name:'Short Film & Creation', desc:'Short formats, hybrid works, experimental projects. The space of absolute freedom where a pure vision can exist without narrative or commercial compromise.', tags:['Auteur','Experimental','Festival']}
+  ],
+  pr_lbl:'\u2014 03\u00a0/\u00a0Our commitments', pr_h1:'What you can', pr_h2:'expect from us.',
+  pr:[
+    {t:'One contact. One vision.', b:'From the initial brief through to final delivery, you have a single direct line of communication \u2014 no intermediary layers, no diluted messages. Your project is handled by the people who understood it from day one.'},
+    {t:'Bespoke teams', b:'We assemble the ideal team for your specific project. Director, director of photography, production designer, editor \u2014 every profile is selected with rigour, never assigned by default.'},
+    {t:'Full budget transparency', b:'You bring the budget. We optimise it with absolute discipline. Every expense line is justified, documented and discussed. No unwelcome surprises at any stage of the process.'},
+    {t:'An obsession with excellence', b:'Every project we accept will be the finest work we have produced \u2014 because that is the only way we know how to operate. This standard is not a posture; it is our architecture.'},
+    {t:'Schedules held. Deadlines met.', b:'A poorly planned production is a production in drift. Our method is built on rigorous pre-production that safeguards the shooting schedule and all downstream delivery timelines.'},
+    {t:'Your project remains yours', b:'We produce; we do not assume control. Your creative and editorial vision is respected at every stage. Our role is to equip you with the means to realise it at the highest possible level.'}
+  ],
+  mani_tag:'\u2014 Our manifesto',
+  mani_body:'\u00ab We do not make <strong>content</strong>.<br>We construct <strong>emotional territories</strong>.<br>Spaces where stories can<br><strong>breathe, burn, and endure</strong>. \u00bb',
+  mani_sig:'\u2014 Spring Vision Studio, Paris',
+  proc_lbl:'\u2014 04\u00a0/\u00a0Method', proc_h1:'From brief to', proc_h2:'final frame.',
+  proc:[
+    {n:'01.', t:'Development', d:'Review and analysis of your project. Creative intent document, artistic bible, technical breakdown. We build the creative backbone before a single camera is touched.'},
+    {n:'02.', t:'Pre-production', d:'Team assembly, casting, location scouting, art direction, storyboard, shooting plan. The quality of the shoot is determined here. We leave nothing to chance.'},
+    {n:'03.', t:'Production', d:'Direction, cinematography, live sound, production management. The creative moment in all its intensity \u2014 underpinned by production rigour that protects every shooting day.'},
+    {n:'04.', t:'Post-production & Delivery', d:'Editing, colour grading, sound mixing, VFX where required. Delivery of all masters in the formats specified. Nothing ships without mutual sign-off.'}
+  ],
+  ot_lbl:'\u2014 05\u00a0/\u00a0Tools\u00a0&\u00a0Studio', ot_h1:'Instruments', ot_h2:'at your service.',
+  ot_intro:'Six tools designed to help you prepare, estimate and visualise your project ahead of our first conversation.',
+  tabs:['Budget Estimator','Production Schedule','Cinema Formats','Mood Selector','Golden Hour\u00a0\u00b7\u00a0World','Join the studio'],
+  b_t_lbl:'Project type', b_d_lbl:'Shooting days', b_c_lbl:'Team size',
+  b_loc_lbl:'Primary locations', b_p_lbl:'Post-production',
+  b_btn:'Calculate estimate \u2197',
+  b_res_lbl:'\u2014 Budget estimate \u00b7 Spring Vision Studio',
+  b_th1:'Line item', b_th2:'Estimate',
+  b_note:'Indicative range, excl. tax. Based on French collective bargaining rates. An accurate quotation requires a full brief.',
+  b_type_opts:['Music Video','Advertising / TVC','Short Film','Documentary','Series (per episode)','Feature Film'],
+  b_crew_opts:['Compact (5\u201310)','Standard (15\u201325)','Large (30\u201350)'],
+  b_deco_opts:['Natural interior','Exterior','Studio','International'],
+  b_post_opts:['Standard','Advanced','VFX / Animation'],
+  b_rows:['Technical & artistic crew','Equipment & gear','Locations, sets & costumes','Production management','Post-production','Contingency (12%)'],
+  b_total:'Total estimate',
+  pl_t_lbl:'Project type', pl_del_lbl:'Desired delivery date', pl_d_lbl:'Shooting days',
+  pl_btn:'Generate schedule \u2197',
+  pl_res_lbl:'\u2014 Production schedule \u00b7 Spring Vision Studio',
+  pl_note:'Estimated durations. Post-production timelines include client approvals.',
+  pl_type_opts:['Music Video','Advertising / TVC','Short Film','Documentary','Series (1 episode)','Feature Film'],
+  pl_phases:{
+    0:[{n:'Post-production & Delivery',d:14},{n:'Production',d:null},{n:'Pre-production',d:10},{n:'Development',d:7}],
+    1:[{n:'Post-production & Delivery',d:21},{n:'Production',d:null},{n:'Pre-production',d:14},{n:'Development',d:10}],
+    2:[{n:'Post-production & Delivery',d:42},{n:'Production',d:null},{n:'Pre-production',d:28},{n:'Writing',d:21}],
+    3:[{n:'Post-production & Delivery',d:56},{n:'Production',d:null},{n:'Pre-production',d:28},{n:'Development',d:42}],
+    4:[{n:'Post-production & Delivery',d:56},{n:'Production',d:null},{n:'Pre-production',d:42},{n:'Development',d:30}],
+    5:[{n:'Post-production & Distribution',d:112},{n:'Production',d:null},{n:'Pre-production',d:56},{n:'Development',d:60}]
+  },
+  pl_kick:'Kick-off meeting', pl_kick_d:'Brief validation, team presentation and work plan.',
+  pl_deliv:'Final delivery', pl_deliv_d:'Masters delivered in all agreed formats. Final approval signed.',
+  pl_shoot_d:' shooting day(s) on location.', pl_work_d:' working day(s).',
+  ar_intro:'Click on a format to explore its usage, history and the films that define it.',
+  mood_intro:'Select up to 3 visual moods. Receive an instant photographic direction \u2014 or one enhanced by LUMIA.',
+  mood_none:'No mood selected.', mood_sel_x:' mood(s) selected:',
+  mood_dir_btn:'Photographic direction \u2197', mood_ai_btn:'Enhance with LUMIA',
+  mood_res_lbl:'\u2014 Visual direction \u00b7 Spring Vision Studio',
+  mood_names:['Absolute Noir','Nordic Light','Mediterranean Warmth','Urban Neon','Contemporary Purity','Raw Realism','Dreamlike Fantasy','Melancholia','Brutalism'],
+  mood_subs:['Deep shadows & extreme contrast','Flat light, overcast sky','Golden tones & film grain','Artificial night & vivid colour','Minimalism & negative space','Handheld & available light','Haze, flares & unreal depth','Long takes & desaturated colour','Raw architecture & geometry'],
+  mood_dir:['Reinvented American noir. Exposure -2 EV, single practical source. Clipped highlights. Palette: deep black, pure white. Zeiss Master Prime wide open. Grade: pronounced S-curve. References: Kubrick (Eyes Wide Shut), Fincher (Seven).','Scandinavian November light. Desaturation 60%, 4200K. Sky as a giant reflector. Leica Summilux. Grade: slight blue-grey lift, no crushed blacks. References: Bergman, Roy Andersson, Trier.','Kodak 500T at 3200K. Heavy grain. 3800\u20134800K. Highlights slightly orange-saturated. Cooke S4. Grade: amber lift, dark chocolate shadows. References: Sorrentino, Guadagnino.','Real night, hard sources only: neon, LED, sodium. Maximum colour saturation in highlights. Fast optics f/1.4. Rec.2020. References: Wong Kar-wai, Refn, No\u00e9.','Light built through subtraction. Windows as sole sources. Negative space as narrative. Ivory and warm grey palette. Leica R. References: Haneke, Lanthimos, Coppola.','Enhanced available light. Handheld, minimal stabilisation. Pushed exposure: -1 EV indoors. LUT inspired by Kodak Vision 2500. References: Dardenne, Andrea Arnold, Ken Loach.','In-lens diffusion: Tiffen Black Pro-Mist 1/4. Halos around every source. f/1.2 on wide shots. Shifted chromatic curve. References: del Toro, Tarkovsky, Gondry.','Late-afternoon declining light. Long takes, 4s+ per shot. Leica R. Blacks at 8 IRE, saturation -15. References: Malick, Edward Yang, Bi Gan.','Concrete, steel, glass \u2014 materials make the light. Deliberate contre-jours, geometric symmetry. 21\u201335mm. Pushed contrast. References: Tati, Kie\u015blowski, Reygadas.'],
+  gh_ph:'Search a city or country\u2026',
+  gh_cont:['All','Europe','Americas','Asia','Africa','Oceania'],
+  gh_next_lbl:'Next light window', gh_calc:'Calculating\u2026',
+  gh_note:'Natural light is the most precious resource on any shoot. Every director of photography builds their day around these golden windows. This tool calculates real-time solar times for all major world capitals.',
+  gh_ev_names:['Blue hour \u2014 morning','Golden hour \u2014 morning','End of golden hour','Golden hour \u2014 evening','Sunset','Blue hour \u2014 evening'],
+  gh_ev_descs:['Indigo sky, diffuse light','Raking light, warm tones','Direct light \u2014 diffusion required','The finest light of the day','Blazing horizon, final golden hour','Deep cyan sky, 20\u00a0precious minutes'],
+  gh_in:'In\u00a0', gh_h:'h\u00a0', gh_m:'m\u00a0', gh_s:'s', gh_tomorrow:'Tomorrow', gh_next_cycle:'Next solar cycle',
+  prest_i1:'Spring Vision Studio assembles its teams project by project \u2014 with exceptional talent. Directors of photography, directors, editors, production designers, sound engineers, production managers.',
+  prest_i2:'If you are a film production professional and wish to join our network, submit your profile. We are building a curated database of talent with whom we intend to collaborate.',
+  prest_tags:['Director of photography','Director','Editor','Production designer','Sound engineer','Production manager','Casting director','Make-up artist','Costume designer','Colourist','VFX / Motion design'],
+  pr_fn:'First name *', pr_ln:'Last name *', pr_em:'Professional email *', pr_role:'Primary role *',
+  pr_exp:'Years of experience', pr_fmts:'Mastered formats', pr_link:'Portfolio / IMDb / Vimeo',
+  pr_msg:'In a few words', pr_btn:'Submit my profile \u2197',
+  ph_fn:'Jane', ph_ln:'Smith', ph_em:'jane@studio.com', ph_msg:'What sets you apart\u2026',
+  pr_role_opts:['\u2014 Select\u2026','Director of photography','Director','Editor','Production designer','Sound engineer','Production manager','Casting director','Make-up artist','Costume designer','Colourist','VFX / Motion design','Art director','Other'],
+  pr_exp_opts:['\u2014 Select\u2026','1\u20133 years','3\u20137 years','7\u201315 years','15+ years'],
+  pr_fmts_opts:['Cinema','Series','Advertising','Music video','Documentary','Short film'],
+  pr_sub_ok:'\u2713 Profile submitted \u2014 Thank you', pr_sub_req:'Please complete the required fields.',
+  ai_badge:'LUMIA\u00a0\u00b7\u00a0Spring Vision Creative Intelligence',
+  ai_h1:'Your creative brief', ai_h2:'drafted in 30 seconds.',
+  ai_sub:'Describe your project in a few words. LUMIA \u2014 Spring Vision Studio\u2019s proprietary creative intelligence \u2014 generates a complete, professional treatment, ready to present to your stakeholders.',
+  ai_t_lbl:'Project type *', ai_m_lbl:'Mood *', ai_d_lbl:'Describe your project *',
+  ai_r_lbl:'References', ai_b_lbl:'Estimated budget', ai_k_lbl:'LUMIA Activation',
+  ai_k_note:'LUMIA access configured for Spring Vision Studio.',
+  ai_d_ph:'E.g. A psychological thriller about a Michelin-starred chef who gradually loses his mind under the pressure of his most exacting clients\u2026',
+  ai_r_ph:'Kubrick, Villeneuve, Haneke\u2026', ai_k_ph:'LUMIA activation key',
+  ai_gen:'Generate brief \u2197',
+  ai_res_lbl:'\u2014 Creative brief\u00a0\u00b7\u00a0LUMIA\u00a0\u00b7\u00a0Spring Vision Studio',
+  ai_type_opts:['\u2014 Select\u2026','Feature Film','TV Series / Streaming','Music Video','Advertising Film','Documentary','Short Film','Brand Content'],
+  ai_mood_opts:['\u2014 Mood\u2026','Dark & Intense','Luminous & Poetic','Realist & Raw','Fantastic & Dreamlike','Elegant & Refined','Explosive & Dynamic','Melancholic & Contemplative'],
+  ai_budget_opts:['\u2014 Range\u2026','Under \u20ac100K','\u20ac100K\u2013\u20ac500K','\u20ac500K\u2013\u20ac2M','\u20ac2M\u2013\u20ac10M','Over \u20ac10M'],
+  ai_err_desc:'Please describe your project.', ai_err_type:'Please select the project type.', ai_err_mood:'Please select a mood.', ai_err_key:'Invalid API key.',
+  ai_prompt:'You are the creative director of Spring Vision Studio, a prestige cinematic production house based in Paris. Write a complete creative treatment in English. Clean text, no markdown. Structure: PROJECT TITLE \u2014 ARTISTIC INTENT \u2014 VISUAL UNIVERSE \u2014 NARRATIVE DIRECTION \u2014 CINEMATIC REFERENCES \u2014 PRODUCTION SCHEDULE \u2014 POSITIONING. Start with the title.',
+  ct_h1:'Your project deserves', ct_h2:'to be in\u00a0', ct_h3:'the right hands.',
+  ct_body:'You have a script, an idea, a budget or simply a conviction. That is sufficient to begin. Write to us \u2014 we read every message and respond within 24 hours.',
+  cf_fn:'First name *', cf_ln:'Last name *', cf_em:'Email *', cf_soc:'Company / Organisation',
+  cf_soc_ph:'Your organisation', cf_type:'Project type *', cf_msg:'Your project *',
+  cf_msg_ph:'Describe your project in a few lines \u2014 format, subject, ambition, deadline\u2026',
+  cf_btn:'Send brief\u00a0\u2197',
+  cf_type_opts:['\u2014 Select\u2026','Feature Film / Cinema','TV Series / Streaming','Short Film','Music Video','Advertising / TVC','Documentary','Brand Content / Corporate','Executive Production'],
+  ct_sub_ok:'\u2713 Message received \u2014 Reply within 24h', ct_sub_req:'Please complete the required fields.',
+  ft_tag:'Where every image\ncomes to life.', ft_h1:'Disciplines', ft_h2:'Studio', ft_h3:'Contact',
+  ft_copy:'\u00a9 2025 Spring Vision Studio. All rights reserved.',
+  ft_disc:['Cinema & Feature Film','Series & Streaming','Music Video','Advertising & Brand','Documentary','Short Film'],
+  ft_studio:['Our vision','Our commitments','Method','Tools & Studio','AI Brief'],
+  ft_studio_h:['#vision','#promesse','#process','#outils','#ai-brief'],
+  ft_contact:['Start a project','infos@springvision.studio','Join the studio','Legal notice'],
+  ft_contact_h:['#contact','mailto:infos@springvision.studio','#outils','legal'],
+  proj_lbl:'\u2014 06\u00a0/\u00a0References', proj_h1:'What we have', proj_h2:'produced.',
+  pr1_title:'Project title', pr1_fmt:'Feature Film\u00a0\u00b7\u00a0Fiction', pr1_tag:'Post-prod',
+  pr2_title:'Project title', pr2_fmt:'Documentary\u00a0\u00b7\u00a0Arte', pr2_tag:'Delivered',
+  pr3_title:'Project title', pr3_fmt:'Music Video\u00a0\u00b7\u00a0Art direction', pr3_tag:'Delivered',
+  proj_note:'Titles and visuals are placeholders \u2014 replace with your real projects before launch.',
+  ticker:['Feature Film','TV Series','Music Video','Advertising','Documentary','Short Film','Brand Content','Executive Production','Feature Film','TV Series','Music Video','Advertising','Documentary','Short Film','Brand Content','Executive Production'],
+  cur_lbl:'VIEW\u00a0\u2197'
+}
+};
+
+// ── STATE ───────────────────────────────────────────
+var LANG = localStorage.getItem('svs-lang') || 'fr';
+var moodSel = [];
+var ghCity = null;
+var ghInterval = null;
+var ghStarted = false;
+var arSel = null;
+var revObs;
+
+// ── APPLY LANGUAGE ──────────────────────────────────
+function applyLang(l) {
+  LANG = l;
+  localStorage.setItem('svs-lang', l);
+  var t = T[l];
+  document.getElementById('hr').lang = l;
+  document.getElementById('btn-fr').classList.toggle('on', l === 'fr');
+  document.getElementById('btn-en').classList.toggle('on', l === 'en');
+  // data-k text
+  document.querySelectorAll('[data-k]').forEach(function(el) {
+    var v = t[el.dataset.k];
+    if (v !== undefined) el.textContent = v;
+  });
+  // data-k-ph placeholders
+  document.querySelectorAll('[data-k-ph]').forEach(function(el) {
+    var v = t[el.dataset.kPh];
+    if (v !== undefined) el.placeholder = v;
+  });
+  // innerHTML
+  var vst = document.getElementById('v_stmt');
+  if (vst) vst.innerHTML = t.v_stmt;
+  var mb = document.getElementById('mani_body');
+  if (mb) mb.innerHTML = t.mani_body;
+  var ft = document.getElementById('ft_tag');
+  if (ft) ft.textContent = t.ft_tag;
+  var hd = document.getElementById('h_desc');
+  if (hd) hd.textContent = t.h_desc;
+  var cl = document.getElementById('cur-lbl');
+  if (cl) cl.textContent = t.cur_lbl;
+  // Dynamic builds
+  buildTicker(l); buildServices(l); buildPromesse(l); buildProcess(l);
+  buildOtTabs(l); buildSelects(l); buildRGs(l);
+  buildPrestTags(l); buildFooter(l); buildMoods(l); buildAR(l);
+  // GH elements
+  var ghp = document.getElementById('gh-search');
+  if (ghp) ghp.placeholder = t.gh_ph;
+  // Rebuild GH cont buttons if already started
+  if (ghStarted) rebuildGhCont(l);
+}
+
+// ── TICKER ──────────────────────────────────────────
+function buildTicker(l) {
+  var el = document.getElementById('tkr');
+  if (!el) return;
+  el.innerHTML = T[l].ticker.map(function(w) {
+    return '<span class="tkr-i">' + w + '</span><span class="tkr-dot">&nbsp;\u2726&nbsp;</span>';
+  }).join('');
+}
+
+// ── SERVICES ────────────────────────────────────────
+var SVC_ICONS = [
+  '<svg class="svc-ico" viewBox="0 0 32 26" fill="none" stroke="currentColor" stroke-width="1"><rect x="1" y="1" width="30" height="24" rx="1"/><rect x="5" y="5" width="22" height="16" stroke-width=".8"/><line x1="5" y1="1" x2="5" y2="5"/><line x1="5" y1="21" x2="5" y2="25"/><line x1="27" y1="1" x2="27" y2="5"/><line x1="27" y1="21" x2="27" y2="25"/></svg>',
+  '<svg class="svc-ico" viewBox="0 0 32 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="1" y="1" width="30" height="18" rx="1"/><line x1="11" y1="19" x2="11" y2="23"/><line x1="21" y1="19" x2="21" y2="23"/><line x1="7" y1="23" x2="25" y2="23"/></svg>',
+  '<svg class="svc-ico" viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="1"><circle cx="15" cy="15" r="14"/><circle cx="15" cy="15" r="5" stroke-width=".8"/><line x1="15" y1="1" x2="15" y2="10"/><line x1="15" y1="20" x2="15" y2="29"/><line x1="1" y1="15" x2="10" y2="15"/><line x1="20" y1="15" x2="29" y2="15"/></svg>',
+  '<svg class="svc-ico" viewBox="0 0 32 28" fill="none" stroke="currentColor" stroke-width="1"><rect x="1" y="1" width="30" height="22" rx="1"/><polygon points="11,7 24,14 11,21" stroke-width=".8"/></svg>',
+  '<svg class="svc-ico" viewBox="0 0 28 22" fill="none" stroke="currentColor" stroke-width="1"><rect x="1" y="1" width="26" height="20" rx="1"/><circle cx="14" cy="11" r="5" stroke-width=".8"/><line x1="1" y1="7" x2="4" y2="7"/><line x1="1" y1="11" x2="4" y2="11"/><line x1="1" y1="15" x2="4" y2="15"/><line x1="24" y1="7" x2="27" y2="7"/><line x1="24" y1="11" x2="27" y2="11"/><line x1="24" y1="15" x2="27" y2="15"/></svg>',
+  '<svg class="svc-ico" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1"><rect x="1" y="1" width="24" height="24" rx="1"/><line x1="9" y1="1" x2="9" y2="25" stroke-width=".8"/><line x1="17" y1="1" x2="17" y2="25" stroke-width=".8"/><line x1="1" y1="9" x2="25" y2="9" stroke-width=".8"/><line x1="1" y1="17" x2="25" y2="17" stroke-width=".8"/></svg>'
+];
+function buildServices(l) {
+  var c = document.getElementById('svc-tr');
+  if (!c) return;
+  c.innerHTML = T[l].svc.map(function(s, i) {
+    return '<div class="svc-c">' + SVC_ICONS[i] + '<div class="svc-num">' + s.num + '</div><div class="svc-name">' + s.name + '</div><p class="svc-desc">' + s.desc + '</p><div class="svc-tags">' + s.tags.map(function(tg) { return '<span class="svc-tag">' + tg + '</span>'; }).join('') + '</div></div>';
+  }).join('');
+}
+
+// ── PROMESSE ────────────────────────────────────────
+function buildPromesse(l) {
+  var g = document.getElementById('pr-grid');
+  if (!g) return;
+  g.innerHTML = T[l].pr.map(function(p, i) {
+    var dl = ['', ' d1', ' d2'][i % 3];
+    return '<div class="pr-card rv' + dl + '"><div class="pr-num">\u2014 0' + (i + 1) + '</div><div class="pr-title">' + p.t + '</div><p class="pr-body">' + p.b + '</p></div>';
+  }).join('');
+  g.querySelectorAll('.rv:not(.in)').forEach(function(el) { revObs && revObs.observe(el); });
+}
+
+// ── PROCESS ─────────────────────────────────────────
+function buildProcess(l) {
+  var c = document.getElementById('proc-w');
+  if (!c) return;
+  c.innerHTML = T[l].proc.map(function(p, i) {
+    var dl = ['', ' d1', ' d2', ' d3'][i];
+    return '<div class="proc-s rv' + dl + '"><div class="ps-dot"></div><div class="ps-n">' + p.n + '</div><div class="ps-t">' + p.t + '</div><p class="ps-d">' + p.d + '</p></div>';
+  }).join('');
+  c.querySelectorAll('.rv:not(.in)').forEach(function(el) { revObs && revObs.observe(el); });
+}
+
+// ── OT TABS ─────────────────────────────────────────
+function buildOtTabs(l) {
+  var tc = document.getElementById('ot-tabs');
+  if (!tc) return;
+  var IDS = ['budget','planning','aspect','mood','golden','prest'];
+  tc.innerHTML = T[l].tabs.map(function(tx, i) {
+    return '<button class="ot-tab' + (i === 0 ? ' on' : '') + '" role="tab" data-tab="' + IDS[i] + '">' + tx + '</button>';
+  }).join('');
+  tc.querySelectorAll('.ot-tab').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      tc.querySelectorAll('.ot-tab').forEach(function(b) { b.classList.remove('on'); });
+      document.querySelectorAll('.ot-panel').forEach(function(p) { p.classList.remove('on'); });
+      btn.classList.add('on');
+      var p = document.getElementById('panel-' + btn.dataset.tab);
+      if (p) p.classList.add('on');
+      if (btn.dataset.tab === 'golden') startGoldenHour();
+    });
+  });
+}
+
+// ── SELECTS ─────────────────────────────────────────
+function fillSel(id, opts, firstDisabled) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.innerHTML = '';
+  if (firstDisabled) {
+    var op0 = document.createElement('option');
+    op0.value = ''; op0.disabled = true; op0.selected = true;
+    op0.textContent = opts[0]; el.appendChild(op0);
+    opts = opts.slice(1);
+  }
+  opts.forEach(function(o) {
+    var op = document.createElement('option');
+    op.textContent = o; el.appendChild(op);
+  });
+}
+function buildSelects(l) {
+  var t = T[l];
+  fillSel('b-type', t.b_type_opts, false);
+  fillSel('p-type', t.pl_type_opts, false);
+  fillSel('pr-role', t.pr_role_opts, true);
+  fillSel('pr-exp', t.pr_exp_opts, true);
+  fillSel('ai-type', t.ai_type_opts, true);
+  fillSel('ai-mood', t.ai_mood_opts, true);
+  fillSel('ai-budget', t.ai_budget_opts, true);
+  fillSel('c-type', t.cf_type_opts, true);
+}
+
+// ── RADIO GROUPS ────────────────────────────────────
+var RG_VALS = {
+  'b-crew': ['small','mid','large'],
+  'b-deco': ['nat','ext','studio','intl'],
+  'b-post': ['std','adv','vfx'],
+  'pr-fmts': ['cinema','serie','pub','clip','doc','court']
+};
+var RG_KEYS = {
+  'b-crew': 'b_crew_opts', 'b-deco': 'b_deco_opts', 'b-post': 'b_post_opts', 'pr-fmts': 'pr_fmts_opts'
+};
+function buildRGs(l) {
+  Object.keys(RG_KEYS).forEach(function(id) {
+    var g = document.getElementById(id);
+    if (!g) return;
+    var opts = T[l][RG_KEYS[id]];
+    var vals = RG_VALS[id];
+    var prevSel = Array.from(g.querySelectorAll('.g-rb.sel')).map(function(b) { return b.dataset.val; });
+    g.innerHTML = '';
+    var multi = id === 'pr-fmts';
+    opts.forEach(function(o, i) {
+      var btn = document.createElement('button');
+      btn.type = 'button'; btn.className = 'g-rb'; btn.dataset.val = vals[i] || String(i);
+      btn.textContent = o;
+      if (prevSel.indexOf(btn.dataset.val) > -1) btn.classList.add('sel');
+      btn.addEventListener('click', function() {
+        if (multi) { btn.classList.toggle('sel'); }
+        else { g.querySelectorAll('.g-rb').forEach(function(b) { b.classList.remove('sel'); }); btn.classList.add('sel'); }
+      });
+      g.appendChild(btn);
+    });
+    if (!multi && !g.querySelector('.sel')) { var f = g.querySelector('.g-rb'); if (f) f.classList.add('sel'); }
+  });
+}
+
+// ── PREST TAGS ──────────────────────────────────────
+function buildPrestTags(l) {
+  var el = document.getElementById('prest-tags');
+  if (!el) return;
+  el.innerHTML = T[l].prest_tags.map(function(tg) { return '<span class="prest-tag">' + tg + '</span>'; }).join('');
+}
+
+// ── FOOTER ──────────────────────────────────────────
+function buildFooter(l) {
+  var t = T[l];
+  var disc = document.getElementById('ft-disc');
+  var studio = document.getElementById('ft-studio');
+  var ct = document.getElementById('ft-contact');
+  if (disc) disc.innerHTML = t.ft_disc.map(function(x) { return '<li><a href="#services">' + x + '</a></li>'; }).join('');
+  if (studio) studio.innerHTML = t.ft_studio.map(function(x, i) { return '<li><a href="' + t.ft_studio_h[i] + '">' + x + '</a></li>'; }).join('');
+  if (ct) ct.innerHTML = t.ft_contact.map(function(x, i) { return '<li><a href="' + t.ft_contact_h[i] + '">' + x + '</a></li>'; }).join('');
+}
+
+// ── MOOD GRID ───────────────────────────────────────
+var MOOD_BG = ['linear-gradient(135deg,#000,#1a1a1a)','linear-gradient(135deg,#b8c8d4,#e8eef2)','linear-gradient(135deg,#8b6914,#d4a240,#f2c96e)','linear-gradient(135deg,#0a0012,#2d0066,#ff0066)','linear-gradient(135deg,#f0ece6,#d8d4ce)','linear-gradient(135deg,#3d3028,#9a7a58)','linear-gradient(135deg,#0d1a2a,#4a6a9a)','linear-gradient(135deg,#2a3040,#6a7590)','linear-gradient(135deg,#1a1a1a,#555)'];
+
+function buildMoods(l) {
+  var g = document.getElementById('mood-grid');
+  if (!g) return;
+  g.innerHTML = ''; moodSel = [];
+  T[l].mood_names.forEach(function(name, i) {
+    var card = document.createElement('div');
+    card.className = 'mood-card';
+    var thumb = document.createElement('div'); thumb.className = 'mood-thumb'; thumb.style.background = MOOD_BG[i];
+    var info = document.createElement('div'); info.className = 'mood-info-d';
+    var nm = document.createElement('div'); nm.className = 'mood-name'; nm.textContent = name;
+    var sub = document.createElement('div'); sub.className = 'mood-sub'; sub.textContent = T[l].mood_subs[i];
+    var chk = document.createElement('div'); chk.className = 'mood-chk';
+    chk.innerHTML = '<svg viewBox="0 0 10 8" fill="none" stroke="black" stroke-width="1.5" width="10"><polyline points="1,4 4,7 9,1"/></svg>';
+    info.appendChild(nm); info.appendChild(sub);
+    card.appendChild(chk); card.appendChild(thumb); card.appendChild(info);
+    card.addEventListener('click', function() {
+      var idx = moodSel.indexOf(i);
+      if (idx > -1) { moodSel.splice(idx, 1); card.classList.remove('sel'); chk.style.opacity = '0'; }
+      else {
+        if (moodSel.length >= 3) { var o = moodSel.shift(); var oc = g.children[o]; if (oc) { oc.classList.remove('sel'); oc.querySelector('.mood-chk').style.opacity = '0'; } }
+        moodSel.push(i); card.classList.add('sel'); chk.style.opacity = '1';
+      }
+      updateMoodInfo();
+    });
+    g.appendChild(card);
+  });
+  updateMoodInfo();
+}
+function updateMoodInfo() {
+  var t = T[LANG]; var el = document.getElementById('mood-info');
+  if (!el) return;
+  el.textContent = moodSel.length === 0 ? t.mood_none : moodSel.length + t.mood_sel_x + ' ' + moodSel.map(function(i) { return t.mood_names[i]; }).join(', ') + '.';
+}
+
+// ── ASPECT RATIOS ───────────────────────────────────
+var AR = [
+  {name:'IMAX', ratio:'1.43:1', w:1.43, h:1,
+   fr:'Le format le plus immersif. Utilis\u00e9 par Christopher Nolan (Oppenheimer, Interstellar). Surface d\u2019image 26% plus grande que le 1.85:1. Tournage en 15-perf 65mm.',
+   en:'The most immersive format in cinema. Used by Christopher Nolan (Oppenheimer, Interstellar). 26% larger image surface than 1.85:1. Shot on 15-perf 65mm.'},
+  {name:'Academy', ratio:'1.33:1', w:1.33, h:1,
+   fr:'Le format originel du cin\u00e9ma muet et sonore. Utilis\u00e9 par Wes Anderson pour son esth\u00e9tique d\u00e9lib\u00e9r\u00e9ment anachronique. Cadre intimiste et frontal.',
+   en:'The original format of silent and early sound cinema. Deployed by Wes Anderson for its deliberately anachronistic aesthetic. Intimate, frontal frame.'},
+  {name:'Flat', ratio:'1.85:1', w:1.85, h:1,
+   fr:'Le format widescreen standard am\u00e9ricain. Utilis\u00e9 par la majorit\u00e9 des productions hollywoodiennes et europ\u00e9ennes. \u00c9quilibre parfait entre largeur et plan rapproch\u00e9.',
+   en:'The standard American widescreen format. Used by the majority of Hollywood and European productions. A perfect balance between panoramic width and close-up discipline.'},
+  {name:'Univisium', ratio:'2.00:1', w:2, h:1,
+   fr:'Cr\u00e9\u00e9 par Vittorio Storaro. Mi-chemin entre Flat et Scope. Adopt\u00e9 par Netflix pour de nombreuses s\u00e9ries premium. \u00c9l\u00e9gant, moderne, compatible tous supports.',
+   en:'Created by cinematographer Vittorio Storaro as a universal format. Midway between Flat and Scope. Adopted by Netflix for many premium series. Elegant, modern, screen-agnostic.'},
+  {name:'Anamorphique', ratio:'2.39:1', w:2.39, h:1,
+   fr:'Le format \u00e9pique. Bokeh ovale et lens flares horizontaux caract\u00e9ristiques. Utilis\u00e9 par Villeneuve (Dune), Ridley Scott. La signature du grand spectacle cin\u00e9matographique.',
+   en:'The epic format. Oval bokeh and characteristic horizontal lens flares. Used by Villeneuve (Dune), Ridley Scott. The signature of grand cinematic spectacle.'},
+  {name:'Ultra Panavision', ratio:'2.76:1', w:2.76, h:1,
+   fr:'Le format le plus large du cin\u00e9ma mainstream. Utilis\u00e9 par Tarantino pour The Hateful Eight. Panorama extr\u00eame. Tr\u00e8s rare \u2014 un choix d\u2019artiste radical.',
+   en:'The widest format in mainstream cinema. Used by Tarantino for The Hateful Eight. Extreme panorama that encompasses landscape entirely. Exceedingly rare \u2014 a radical artistic statement.'},
+  {name:'16:9 / HD', ratio:'1.78:1', w:1.78, h:1,
+   fr:'Le format universel des \u00e9crans modernes \u2014 t\u00e9l\u00e9vision, streaming, moniteurs. Standard pour les s\u00e9ries, la publicit\u00e9 digitale et le web.',
+   en:'The universal format for modern screens \u2014 television, streaming, monitors. The standard for series, digital advertising and web content.'},
+  {name:'Vertical', ratio:'9:16', w:0.5625, h:1,
+   fr:'Le format natif du smartphone. Impos\u00e9 par Instagram Reels, TikTok, YouTube Shorts. Exige une refonte totale de la composition. De plus en plus utilis\u00e9 pour des clips et spots digitaux.',
+   en:'The native smartphone format. Mandated by Instagram Reels, TikTok and YouTube Shorts. Demands a complete rethinking of composition. Increasingly central to music videos and digital campaigns.'}
+];
+function buildAR(l) {
+  var grid = document.getElementById('ar-grid');
+  var det = document.getElementById('ar-det');
+  if (!grid) return;
+  grid.innerHTML = ''; det.classList.remove('on'); arSel = null;
+  AR.forEach(function(f, i) {
+    var card = document.createElement('div'); card.className = 'ar-card';
+    var canv = document.createElement('div'); canv.className = 'ar-canvas';
+    var mW = 100, mH = 70, rw, rh;
+    if (f.w >= f.h) { rw = mW; rh = Math.round(mW / f.w * f.h); }
+    else { rh = mH; rw = Math.round(mH * f.w / f.h); }
+    var rect = document.createElement('div'); rect.className = 'ar-rect';
+    rect.style.cssText = 'width:' + rw + 'px;height:' + rh + 'px';
+    canv.appendChild(rect);
+    var nm = document.createElement('div'); nm.className = 'ar-name'; nm.textContent = f.name;
+    var rt = document.createElement('div'); rt.className = 'ar-ratio'; rt.textContent = f.ratio;
+    var chk = document.createElement('div'); chk.className = 'mood-chk';
+    chk.innerHTML = '<svg viewBox="0 0 10 8" fill="none" stroke="black" stroke-width="1.5" width="10"><polyline points="1,4 4,7 9,1"/></svg>';
+    card.appendChild(chk); card.appendChild(canv); card.appendChild(nm); card.appendChild(rt);
+    card.addEventListener('click', function() {
+      grid.querySelectorAll('.ar-card').forEach(function(c) { c.classList.remove('sel'); c.querySelector('.mood-chk').style.opacity = '0'; });
+      if (arSel === i) { arSel = null; det.classList.remove('on'); return; }
+      arSel = i; card.classList.add('sel'); chk.style.opacity = '1';
+      document.getElementById('ar-det-name').textContent = f.name;
+      document.getElementById('ar-det-ratio').textContent = f.ratio;
+      document.getElementById('ar-det-body').textContent = LANG === 'fr' ? f.fr : f.en;
+      var vr = document.getElementById('ar-viz-r');
+      var vw = det.querySelector('.ar-viz').offsetWidth - 20 || 300;
+      var vh = 60, rvw, rvh;
+      if (f.w >= f.h) { rvw = vw; rvh = Math.round(vw / f.w * f.h); }
+      else { rvh = vh; rvw = Math.round(vh * f.w / f.h); }
+      vr.style.cssText = 'width:' + rvw + 'px;height:' + rvh + 'px';
+      det.classList.add('on');
+    });
+    grid.appendChild(card);
+  });
+}
+
+// ── GOLDEN HOUR ─────────────────────────────────────
+var GH_CAPS = [
+  {n:'Paris',c:'France',lat:48.8566,lng:2.3522,tz:'Europe/Paris',cont:'europe'},
+  {n:'Londres',c:'Royaume-Uni',lat:51.5074,lng:-0.1278,tz:'Europe/London',cont:'europe'},
+  {n:'Berlin',c:'Allemagne',lat:52.5200,lng:13.4050,tz:'Europe/Berlin',cont:'europe'},
+  {n:'Rome',c:'Italie',lat:41.9028,lng:12.4964,tz:'Europe/Rome',cont:'europe'},
+  {n:'Madrid',c:'Espagne',lat:40.4168,lng:-3.7038,tz:'Europe/Madrid',cont:'europe'},
+  {n:'Barcelone',c:'Espagne',lat:41.3851,lng:2.1734,tz:'Europe/Madrid',cont:'europe'},
+  {n:'Lisbonne',c:'Portugal',lat:38.7223,lng:-9.1393,tz:'Europe/Lisbon',cont:'europe'},
+  {n:'Amsterdam',c:'Pays-Bas',lat:52.3676,lng:4.9041,tz:'Europe/Amsterdam',cont:'europe'},
+  {n:'Bruxelles',c:'Belgique',lat:50.8503,lng:4.3517,tz:'Europe/Brussels',cont:'europe'},
+  {n:'Zurich',c:'Suisse',lat:47.3769,lng:8.5417,tz:'Europe/Zurich',cont:'europe'},
+  {n:'Vienne',c:'Autriche',lat:48.2082,lng:16.3738,tz:'Europe/Vienna',cont:'europe'},
+  {n:'Stockholm',c:'Su\u00e8de',lat:59.3293,lng:18.0686,tz:'Europe/Stockholm',cont:'europe'},
+  {n:'Oslo',c:'Norv\u00e8ge',lat:59.9139,lng:10.7522,tz:'Europe/Oslo',cont:'europe'},
+  {n:'Copenhague',c:'Danemark',lat:55.6761,lng:12.5683,tz:'Europe/Copenhagen',cont:'europe'},
+  {n:'Helsinki',c:'Finlande',lat:60.1699,lng:24.9384,tz:'Europe/Helsinki',cont:'europe'},
+  {n:'Dublin',c:'Irlande',lat:53.3498,lng:-6.2603,tz:'Europe/Dublin',cont:'europe'},
+  {n:'Varsovie',c:'Pologne',lat:52.2297,lng:21.0122,tz:'Europe/Warsaw',cont:'europe'},
+  {n:'Prague',c:'Tch\u00e9quie',lat:50.0755,lng:14.4378,tz:'Europe/Prague',cont:'europe'},
+  {n:'Budapest',c:'Hongrie',lat:47.4979,lng:19.0402,tz:'Europe/Budapest',cont:'europe'},
+  {n:'Ath\u00e8nes',c:'Gr\u00e8ce',lat:37.9838,lng:23.7275,tz:'Europe/Athens',cont:'europe'},
+  {n:'Istanbul',c:'Turquie',lat:41.0082,lng:28.9784,tz:'Europe/Istanbul',cont:'europe'},
+  {n:'Moscou',c:'Russie',lat:55.7558,lng:37.6173,tz:'Europe/Moscow',cont:'europe'},
+  {n:'Reykjavik',c:'Islande',lat:64.1466,lng:-21.9426,tz:'Atlantic/Reykjavik',cont:'europe'},
+  {n:'New York',c:'\u00c9tats-Unis',lat:40.7128,lng:-74.0060,tz:'America/New_York',cont:'ameriques'},
+  {n:'Los Angeles',c:'\u00c9tats-Unis',lat:34.0522,lng:-118.2437,tz:'America/Los_Angeles',cont:'ameriques'},
+  {n:'Chicago',c:'\u00c9tats-Unis',lat:41.8781,lng:-87.6298,tz:'America/Chicago',cont:'ameriques'},
+  {n:'Miami',c:'\u00c9tats-Unis',lat:25.7617,lng:-80.1918,tz:'America/New_York',cont:'ameriques'},
+  {n:'San Francisco',c:'\u00c9tats-Unis',lat:37.7749,lng:-122.4194,tz:'America/Los_Angeles',cont:'ameriques'},
+  {n:'Las Vegas',c:'\u00c9tats-Unis',lat:36.1699,lng:-115.1398,tz:'America/Los_Angeles',cont:'ameriques'},
+  {n:'Toronto',c:'Canada',lat:43.6532,lng:-79.3832,tz:'America/Toronto',cont:'ameriques'},
+  {n:'Montr\u00e9al',c:'Canada',lat:45.5017,lng:-73.5673,tz:'America/Toronto',cont:'ameriques'},
+  {n:'Vancouver',c:'Canada',lat:49.2827,lng:-123.1207,tz:'America/Vancouver',cont:'ameriques'},
+  {n:'Mexico',c:'Mexique',lat:19.4326,lng:-99.1332,tz:'America/Mexico_City',cont:'ameriques'},
+  {n:'S\u00e3o Paulo',c:'Br\u00e9sil',lat:-23.5505,lng:-46.6333,tz:'America/Sao_Paulo',cont:'ameriques'},
+  {n:'Rio de Janeiro',c:'Br\u00e9sil',lat:-22.9068,lng:-43.1729,tz:'America/Sao_Paulo',cont:'ameriques'},
+  {n:'Buenos Aires',c:'Argentine',lat:-34.6037,lng:-58.3816,tz:'America/Argentina/Buenos_Aires',cont:'ameriques'},
+  {n:'Santiago',c:'Chili',lat:-33.4489,lng:-70.6693,tz:'America/Santiago',cont:'ameriques'},
+  {n:'Bogot\u00e1',c:'Colombie',lat:4.7110,lng:-74.0721,tz:'America/Bogota',cont:'ameriques'},
+  {n:'Lima',c:'P\u00e9rou',lat:-12.0464,lng:-77.0428,tz:'America/Lima',cont:'ameriques'},
+  {n:'Montevideo',c:'Uruguay',lat:-34.9011,lng:-56.1915,tz:'America/Montevideo',cont:'ameriques'},
+  {n:'Tokyo',c:'Japon',lat:35.6762,lng:139.6503,tz:'Asia/Tokyo',cont:'asie'},
+  {n:'Osaka',c:'Japon',lat:34.6937,lng:135.5023,tz:'Asia/Tokyo',cont:'asie'},
+  {n:'P\u00e9kin',c:'Chine',lat:39.9042,lng:116.4074,tz:'Asia/Shanghai',cont:'asie'},
+  {n:'Shanghai',c:'Chine',lat:31.2304,lng:121.4737,tz:'Asia/Shanghai',cont:'asie'},
+  {n:'Hong Kong',c:'Chine',lat:22.3193,lng:114.1694,tz:'Asia/Hong_Kong',cont:'asie'},
+  {n:'S\u00e9oul',c:'Cor\u00e9e du Sud',lat:37.5665,lng:126.9780,tz:'Asia/Seoul',cont:'asie'},
+  {n:'Singapour',c:'Singapour',lat:1.3521,lng:103.8198,tz:'Asia/Singapore',cont:'asie'},
+  {n:'Bangkok',c:'Tha\u00eflande',lat:13.7563,lng:100.5018,tz:'Asia/Bangkok',cont:'asie'},
+  {n:'Mumbai',c:'Inde',lat:19.0760,lng:72.8777,tz:'Asia/Kolkata',cont:'asie'},
+  {n:'New Delhi',c:'Inde',lat:28.6139,lng:77.2090,tz:'Asia/Kolkata',cont:'asie'},
+  {n:'Duba\u00ef',c:'\u00c9mirats arabes',lat:25.2048,lng:55.2708,tz:'Asia/Dubai',cont:'asie'},
+  {n:'Abu Dhabi',c:'\u00c9mirats arabes',lat:24.4539,lng:54.3773,tz:'Asia/Dubai',cont:'asie'},
+  {n:'Riyad',c:'Arabie Saoudite',lat:24.7136,lng:46.6753,tz:'Asia/Riyadh',cont:'asie'},
+  {n:'Tel Aviv',c:'Isra\u00ebl',lat:32.0853,lng:34.7818,tz:'Asia/Jerusalem',cont:'asie'},
+  {n:'T\u00e9h\u00e9ran',c:'Iran',lat:35.6892,lng:51.3890,tz:'Asia/Tehran',cont:'asie'},
+  {n:'Jakarta',c:'Indon\u00e9sie',lat:-6.2088,lng:106.8456,tz:'Asia/Jakarta',cont:'asie'},
+  {n:'Kuala Lumpur',c:'Malaisie',lat:3.1390,lng:101.6869,tz:'Asia/Kuala_Lumpur',cont:'asie'},
+  {n:'Manille',c:'Philippines',lat:14.5995,lng:120.9842,tz:'Asia/Manila',cont:'asie'},
+  {n:'Taipei',c:'Ta\u00efwan',lat:25.0330,lng:121.5654,tz:'Asia/Taipei',cont:'asie'},
+  {n:'Hano\u00ef',c:'Vietnam',lat:21.0285,lng:105.8542,tz:'Asia/Ho_Chi_Minh',cont:'asie'},
+  {n:'Doha',c:'Qatar',lat:25.2854,lng:51.5310,tz:'Asia/Qatar',cont:'asie'},
+  {n:'Dhaka',c:'Bangladesh',lat:23.8103,lng:90.4125,tz:'Asia/Dhaka',cont:'asie'},
+  {n:'Katmandou',c:'N\u00e9pal',lat:27.7172,lng:85.3240,tz:'Asia/Kathmandu',cont:'asie'},
+  {n:'Le Caire',c:'\u00c9gypte',lat:30.0444,lng:31.2357,tz:'Africa/Cairo',cont:'afrique'},
+  {n:'Lagos',c:'Nig\u00e9ria',lat:6.5244,lng:3.3792,tz:'Africa/Lagos',cont:'afrique'},
+  {n:'Johannesburg',c:'Afrique du Sud',lat:-26.2041,lng:28.0473,tz:'Africa/Johannesburg',cont:'afrique'},
+  {n:'Le Cap',c:'Afrique du Sud',lat:-33.9249,lng:18.4241,tz:'Africa/Johannesburg',cont:'afrique'},
+  {n:'Nairobi',c:'Kenya',lat:-1.2921,lng:36.8219,tz:'Africa/Nairobi',cont:'afrique'},
+  {n:'Casablanca',c:'Maroc',lat:33.5731,lng:-7.5898,tz:'Africa/Casablanca',cont:'afrique'},
+  {n:'Alger',c:'Alg\u00e9rie',lat:36.7372,lng:3.0865,tz:'Africa/Algiers',cont:'afrique'},
+  {n:'Tunis',c:'Tunisie',lat:36.8065,lng:10.1815,tz:'Africa/Tunis',cont:'afrique'},
+  {n:'Dakar',c:'S\u00e9n\u00e9gal',lat:14.7167,lng:-17.4677,tz:'Africa/Dakar',cont:'afrique'},
+  {n:'Accra',c:'Ghana',lat:5.6037,lng:-0.1870,tz:'Africa/Accra',cont:'afrique'},
+  {n:'Addis-Abeba',c:'\u00c9thiopie',lat:9.0320,lng:38.7469,tz:'Africa/Addis_Ababa',cont:'afrique'},
+  {n:'Kinshasa',c:'RD Congo',lat:-4.3276,lng:15.3136,tz:'Africa/Kinshasa',cont:'afrique'},
+  {n:'Luanda',c:'Angola',lat:-8.8399,lng:13.2894,tz:'Africa/Luanda',cont:'afrique'},
+  {n:'Rabat',c:'Maroc',lat:34.0209,lng:-6.8416,tz:'Africa/Casablanca',cont:'afrique'},
+  {n:'Sydney',c:'Australie',lat:-33.8688,lng:151.2093,tz:'Australia/Sydney',cont:'oceanie'},
+  {n:'Melbourne',c:'Australie',lat:-37.8136,lng:144.9631,tz:'Australia/Melbourne',cont:'oceanie'},
+  {n:'Brisbane',c:'Australie',lat:-27.4698,lng:153.0251,tz:'Australia/Brisbane',cont:'oceanie'},
+  {n:'Perth',c:'Australie',lat:-31.9505,lng:115.8605,tz:'Australia/Perth',cont:'oceanie'},
+  {n:'Auckland',c:'Nouvelle-Z\u00e9lande',lat:-36.8485,lng:174.7633,tz:'Pacific/Auckland',cont:'oceanie'},
+  {n:'Wellington',c:'Nouvelle-Z\u00e9lande',lat:-41.2866,lng:174.7756,tz:'Pacific/Auckland',cont:'oceanie'},
+  {n:'Honolulu',c:'\u00c9tats-Unis',lat:21.3069,lng:-157.8583,tz:'Pacific/Honolulu',cont:'oceanie'},
+  {n:'Suva',c:'Fidji',lat:-18.1248,lng:178.4501,tz:'Pacific/Fiji',cont:'oceanie'}
+];
+
+var GH_CONT_IDS = ['all','europe','ameriques','asie','afrique','oceanie'];
+
+function rebuildGhCont(l) {
+  var cont = document.getElementById('gh-cont');
+  if (!cont) return;
+  cont.querySelectorAll('.gh-cont-btn').forEach(function(btn, i) {
+    btn.textContent = T[l].gh_cont[i];
+  });
+}
+
+function startGoldenHour() {
+  if (ghStarted) return;
+  ghStarted = true;
+  ghCity = GH_CAPS[0];
+  var cont = document.getElementById('gh-cont');
+  GH_CONT_IDS.forEach(function(id, i) {
+    var btn = document.createElement('button');
+    btn.className = 'gh-cont-btn' + (i === 0 ? ' on' : '');
+    btn.dataset.cont = id; btn.type = 'button';
+    btn.textContent = T[LANG].gh_cont[i];
+    btn.addEventListener('click', function() {
+      cont.querySelectorAll('.gh-cont-btn').forEach(function(b) { b.classList.remove('on'); });
+      btn.classList.add('on');
+      filterGH(id, document.getElementById('gh-search').value.toLowerCase());
+    });
+    cont.appendChild(btn);
+  });
+  var track = document.getElementById('gh-track');
+  GH_CAPS.forEach(function(cap, i) {
+    var card = document.createElement('div');
+    card.className = 'gh-city-card' + (i === 0 ? ' sel' : '');
+    card.dataset.cont = cap.cont;
+    var nm = document.createElement('div'); nm.className = 'gh-city-name'; nm.textContent = cap.n;
+    var co = document.createElement('div'); co.className = 'gh-city-co'; co.textContent = cap.c;
+    var lt = document.createElement('div'); lt.className = 'gh-city-lt'; lt.id = 'gh-lt-' + i; lt.textContent = '--:--';
+    card.appendChild(nm); card.appendChild(co); card.appendChild(lt);
+    card.addEventListener('click', function() {
+      track.querySelectorAll('.gh-city-card').forEach(function(c) { c.classList.remove('sel'); });
+      card.classList.add('sel');
+      ghCity = cap;
+      document.getElementById('gh-sel-city').textContent = cap.n + ', ' + cap.c;
+    });
+    track.appendChild(card);
+  });
+  document.getElementById('gh-search').addEventListener('input', function() {
+    var on = cont.querySelector('.gh-cont-btn.on');
+    filterGH(on ? on.dataset.cont : 'all', this.value.toLowerCase());
+  });
+  function filterGH(c, s) {
+    track.querySelectorAll('.gh-city-card').forEach(function(card, i) {
+      var cap = GH_CAPS[i];
+      card.classList.toggle('hidden', !((c === 'all' || cap.cont === c) && (!s || cap.n.toLowerCase().includes(s) || cap.c.toLowerCase().includes(s))));
+    });
+  }
+  function pad(n) { return String(Math.floor(n)).padStart(2, '0'); }
+  function fmtT(ms, tz) { try { return new Date(ms).toLocaleTimeString('fr-FR', {hour:'2-digit',minute:'2-digit',timeZone:tz}); } catch(e) { return '--:--'; } }
+  function sunTime(noon, lat, lng, rise) {
+    var D = Math.PI / 180;
+    var jd = noon / 86400000 + 2440587.5;
+    var n = jd - 2451545 + 0.0008;
+    var Js = n + lng / 360;
+    var M = (357.5291 + 0.98560028 * Js) % 360 * D;
+    var C = (1.9148 * Math.sin(M) + 0.02 * Math.sin(2 * M) + 0.0003 * Math.sin(3 * M)) * D;
+    var lam = M + C + (102.9372 * D) + Math.PI;
+    var Jt = 2451545 + Js + 0.0053 * Math.sin(M) - 0.0069 * Math.sin(2 * lam);
+    var dec = Math.asin(Math.sin(lam) * Math.sin(23.4397 * D));
+    var cosw = (Math.sin(-0.8333 * D) - Math.sin(lat * D) * Math.sin(dec)) / (Math.cos(lat * D) * Math.cos(dec));
+    if (Math.abs(cosw) > 1) return null;
+    var w = Math.acos(cosw);
+    var J = rise ? Jt - w / (2 * Math.PI) : Jt + w / (2 * Math.PI);
+    return (J - 2440587.5) * 86400000;
+  }
+  function update() {
+    var now = Date.now();
+    var t = T[LANG];
+    var cap = ghCity || GH_CAPS[0];
+    var tz = cap.tz;
+    GH_CAPS.forEach(function(c, i) {
+      var el = document.getElementById('gh-lt-' + i);
+      if (el) el.textContent = fmtT(now, c.tz);
+    });
+    try {
+      document.getElementById('gh-clock').textContent = new Date(now).toLocaleTimeString('fr-FR', {hour:'2-digit',minute:'2-digit',second:'2-digit',timeZone:tz});
+      var loc = new Date(new Date(now).toLocaleString('en-US', {timeZone:tz}));
+      document.getElementById('gh-date').textContent = loc.toLocaleDateString('fr-FR', {weekday:'long',day:'numeric',month:'long'}) + '\u00a0\u00b7\u00a0' + cap.n;
+    } catch(e) {}
+    var ns = new Date(now).toLocaleDateString('en-CA', {timeZone:tz});
+    var noonMs = new Date(ns + 'T12:00:00Z').getTime();
+    var sr = sunTime(noonMs, cap.lat, cap.lng, true);
+    var ss = sunTime(noonMs, cap.lat, cap.lng, false);
+    if (!sr || !ss) return;
+    var GH = 3600000, BH = 1800000;
+    var evs = [
+      {ms:sr-BH, ci:0, col:'#4a90d9'},
+      {ms:sr, ci:1, col:'#ffb800'},
+      {ms:sr+GH, ci:2, col:'#ff8c00'},
+      {ms:ss-GH, ci:3, col:'#ffb800'},
+      {ms:ss, ci:4, col:'#ff4400'},
+      {ms:ss+BH/3, ci:5, col:'#4a90d9'}
+    ];
+    var locNow = new Date(new Date(now).toLocaleString('en-US', {timeZone:tz}));
+    var nowMs = locNow.getTime();
+    var evDiv = document.getElementById('gh-events');
+    evDiv.innerHTML = '';
+    evs.forEach(function(ev) {
+      var isPast = ev.ms < nowMs - 300000;
+      var isCur = !isPast && ev.ms < nowMs + 1200000;
+      var row = document.createElement('div');
+      row.className = 'gh-ev' + (isPast ? ' past' : '') + (isCur ? ' cur' : '');
+      var info = document.createElement('div'); info.className = 'gh-ev-info';
+      var nm = document.createElement('div'); nm.className = 'gh-ev-name'; nm.textContent = t.gh_ev_names[ev.ci];
+      if (isCur) nm.style.color = ev.col;
+      var desc = document.createElement('div'); desc.className = 'gh-ev-desc'; desc.textContent = t.gh_ev_descs[ev.ci];
+      info.appendChild(nm); info.appendChild(desc);
+      var time = document.createElement('div'); time.className = 'gh-ev-time'; time.textContent = fmtT(ev.ms, tz); time.style.color = ev.col;
+      row.appendChild(info); row.appendChild(time); evDiv.appendChild(row);
+    });
+    var nxt = evs.find(function(ev) { return ev.ms > nowMs; });
+    var nc = document.getElementById('gh-next');
+    if (nxt) {
+      document.getElementById('gh-next-name').textContent = t.gh_ev_names[nxt.ci];
+      document.getElementById('gh-next-time').textContent = fmtT(nxt.ms, tz);
+      var diff = nxt.ms - nowMs;
+      var hh = Math.floor(diff / 3600000), mm = Math.floor((diff % 3600000) / 60000), ss2 = Math.floor((diff % 60000) / 1000);
+      document.getElementById('gh-countdown').textContent = t.gh_in + hh + t.gh_h + pad(mm) + t.gh_m + pad(ss2) + t.gh_s;
+      nc.className = 'gh-next ' + (nxt.col === '#4a90d9' ? 'blue' : nxt.ci === 1 || nxt.ci === 3 ? 'golden' : '');
+    } else {
+      document.getElementById('gh-next-name').textContent = t.gh_tomorrow;
+      document.getElementById('gh-next-time').textContent = '';
+      document.getElementById('gh-countdown').textContent = t.gh_next_cycle;
+      nc.className = 'gh-next';
+    }
+    var ds = new Date(locNow); ds.setHours(4, 0, 0, 0);
+    var de = new Date(locNow); de.setHours(22, 0, 0, 0);
+    var prog = Math.max(0, Math.min(1, (locNow - ds) / (de - ds)));
+    document.getElementById('gh-bar-fill').style.backgroundPosition = (prog * 100) + '% 0';
+    document.getElementById('gh-bar-now').style.left = (prog * 100) + '%';
+  }
+  update();
+  if (ghInterval) clearInterval(ghInterval);
+  ghInterval = setInterval(update, 1000);
+}
+
+// ── PRELOADER ───────────────────────────────────────
+!function() {
+  var f = document.getElementById('pre-fill'), c = document.getElementById('pre-n'), p = document.getElementById('pre');
+  var s = ['04','03','02','01','00'], i = 0;
+  document.body.style.overflow = 'hidden';
+  requestAnimationFrame(function() { f.style.width = '100%'; });
+  var ti = setInterval(function() {
+    i++;
+    if (i < s.length) c.textContent = s[i];
+    if (i >= s.length - 1) { clearInterval(ti); document.body.style.overflow = ''; setTimeout(function() { p.classList.add('out'); }, 280); }
+  }, 500);
+}();
+
+// ── CURSOR ──────────────────────────────────────────
+!function() {
+  if (window.matchMedia('(pointer:coarse)').matches) return;
+  var cur = document.getElementById('cur'); if (!cur) return;
+  var o = cur.querySelector('.co'), ci = cur.querySelector('.ci'), cl = cur.querySelector('.cl');
+  var mx = -200, my = -200, rx = -200, ry = -200;
+  document.addEventListener('mousemove', function(e) { mx = e.clientX; my = e.clientY; }, {passive:true});
+  !function loop() { rx += (mx - rx) * .13; ry += (my - ry) * .13; o.style.left = rx + 'px'; o.style.top = ry + 'px'; ci.style.left = mx + 'px'; ci.style.top = my + 'px'; cl.style.left = rx + 'px'; cl.style.top = ry + 'px'; requestAnimationFrame(loop); }();
+  document.querySelectorAll('.sr-w,.play-btn').forEach(function(el) { el.addEventListener('mouseenter', function() { document.body.classList.add('cv'); }); el.addEventListener('mouseleave', function() { document.body.classList.remove('cv'); }); });
+  document.querySelectorAll('a,button,.svc-c,.proc-s,.vi-item,.pr-card,.ar-card,.mood-card,.ot-tab,.gh-city-card,.lang-btn').forEach(function(el) { el.addEventListener('mouseenter', function() { document.body.classList.add('ch'); }); el.addEventListener('mouseleave', function() { document.body.classList.remove('ch'); }); });
+}();
+
+// ── LANG BUTTONS ────────────────────────────────────
+document.getElementById('btn-fr').addEventListener('click', function() { applyLang('fr'); });
+document.getElementById('btn-en').addEventListener('click', function() { applyLang('en'); });
+
+// ── BURGER ──────────────────────────────────────────
+!function() {
+  var b = document.getElementById('burger'), m = document.getElementById('menu'), open = false;
+  function toggle(f) { open = f !== undefined ? f : !open; b.classList.toggle('open', open); b.setAttribute('aria-expanded', open); m.classList.toggle('open', open); document.body.style.overflow = open ? 'hidden' : ''; }
+  b.addEventListener('click', function() { toggle(); });
+  m.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', function() { toggle(false); }); });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && open) toggle(false); });
+}();
+
+// ── SCROLL REVEAL ───────────────────────────────────
+!function() {
+  var els = document.querySelectorAll('.rv');
+  if (!('IntersectionObserver' in window)) { els.forEach(function(el) { el.classList.add('in'); }); return; }
+  revObs = new IntersectionObserver(function(ents) { ents.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('in'); revObs.unobserve(e.target); } }); }, {threshold:0.1});
+  els.forEach(function(el) { revObs.observe(el); });
+}();
+
+// ── HERO VIMEO ──────────────────────────────────────
+!function() {
+  var v = document.getElementById('hero-vimeo'), f = document.getElementById('hero-fall');
+  if (!v) return;
+  if (v.src.includes('VOTRE_VIDEO_ID')) v.style.display = 'none';
+  else if (f) f.style.display = 'none';
+}();
+
+// ── SHOWREEL ────────────────────────────────────────
+!function() {
+  var btn = document.getElementById('sr-play'), iframe = document.getElementById('sr-if'),
+      wrap = document.getElementById('sr-ifw'), post = document.getElementById('sr-post');
+  if (!btn) return;
+  btn.addEventListener('click', function() {
+    if (iframe.dataset.src) { iframe.src = iframe.dataset.src; iframe.removeAttribute('data-src'); }
+    wrap.classList.add('on'); post.classList.add('gone');
+  });
+}();
+
+// ── SMOOTH SCROLL ───────────────────────────────────
+document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+  a.addEventListener('click', function(e) {
+    var id = a.getAttribute('href').slice(1), t = id ? document.getElementById(id) : null;
+    if (t) { e.preventDefault(); t.scrollIntoView({behavior:'smooth',block:'start'}); }
+  });
+});
+
+// ── SLIDERS ─────────────────────────────────────────
+[['b-days','b-days-v'],['p-days','p-days-v']].forEach(function(p) {
+  var s = document.getElementById(p[0]), v = document.getElementById(p[1]);
+  if (!s || !v) return;
+  s.addEventListener('input', function() { v.textContent = s.value; });
+});
+
+// ── BUDGET ──────────────────────────────────────────
+!function() {
+  var btn = document.getElementById('b-btn'); if (!btn) return;
+  var RATES = {0:{b:8000,d:2200},1:{b:20000,d:4500},2:{b:15000,d:2800},3:{b:12000,d:2000},4:{b:80000,d:5000},5:{b:150000,d:4000}};
+  var CREW = {small:1,mid:1.8,large:3};
+  var DECO = {nat:1,ext:1.3,studio:1.6,intl:2.2};
+  var POST = {std:1,adv:1.6,vfx:2.4};
+  btn.addEventListener('click', function() {
+    var t = T[LANG];
+    var ti = document.getElementById('b-type').selectedIndex; if (ti < 0) ti = 0;
+    var days = parseInt(document.getElementById('b-days').value) || 5;
+    var crew = document.querySelector('#b-crew .g-rb.sel');
+    var deco = document.querySelector('#b-deco .g-rb.sel');
+    var post = document.querySelector('#b-post .g-rb.sel');
+    var r = RATES[ti] || RATES[0];
+    var cm = crew ? CREW[crew.dataset.val] || 1 : 1;
+    var dm = deco ? DECO[deco.dataset.val] || 1 : 1;
+    var pm = post ? POST[post.dataset.val] || 1 : 1;
+    var eq = Math.round(days * r.d * cm * 0.45 / 500) * 500;
+    var mat = Math.round(days * r.d * cm * 0.18 / 200) * 200;
+    var dec = Math.round(r.b * 0.12 * dm / 200) * 200;
+    var reg = Math.round(days * r.d * 0.08 / 100) * 100;
+    var pc = Math.round((r.b * 0.20 + days * 800) * pm / 500) * 500;
+    var imp = Math.round((eq + mat + dec + reg + pc) * 0.12 / 100) * 100;
+    var tot = eq + mat + dec + reg + pc + imp;
+    function fmt(n) { return n.toLocaleString('fr-FR') + '\u00a0\u20ac'; }
+    function rng(n, f) { return fmt(Math.round(n * f)) + '\u00a0\u2013\u00a0' + fmt(Math.round(n * (f + 0.35))); }
+    var vals = [rng(eq,.9),rng(mat,.85),rng(dec,.8),rng(reg,.9),rng(pc,.85),rng(imp,.9)];
+    document.getElementById('b-tbody').innerHTML = t.b_rows.map(function(row, i) {
+      return '<tr><td>' + row + '</td><td>' + vals[i] + '</td></tr>';
+    }).join('') + '<tr class="tot"><td>' + t.b_total + '</td><td>' + rng(tot, .88) + '</td></tr>';
+    document.getElementById('b-result').classList.add('on');
+  });
+  // Calcul automatique au chargement
+  btn.click();
+}();
+
+// ── PLANNING ────────────────────────────────────────
+!function() {
+  var btn = document.getElementById('p-btn'); if (!btn) return;
+  function addDays(d, n) { var r = new Date(d); r.setDate(r.getDate() + n); return r; }
+  function fmtDate(d) { return d.toLocaleDateString('fr-FR', {day:'2-digit',month:'long',year:'numeric'}); }
+  btn.addEventListener('click', function() {
+    var t = T[LANG];
+    var ti = document.getElementById('p-type').selectedIndex; if (ti < 0) ti = 0;
+    var ds = document.getElementById('p-delivery').value;
+    var sd = parseInt(document.getElementById('p-days').value) || 5;
+    if (!ds) { alert(LANG === 'fr' ? 'Veuillez saisir une date.' : 'Please enter a delivery date.'); return; }
+    var deliv = new Date(ds);
+    var phases = t.pl_phases[ti] || t.pl_phases[0];
+    var cur = new Date(deliv); var events = [];
+    phases.forEach(function(ph) {
+      var dur = ph.d !== null ? ph.d : sd;
+      var end = new Date(cur); var start = addDays(cur, -dur);
+      events.push({name:ph.n,start:start,end:end,dur:dur}); cur = new Date(start);
+    });
+    events.reverse();
+    events.unshift({name:t.pl_kick, start:new Date(events[0].start), end:new Date(events[0].start), dur:0, kickoff:true});
+    events.push({name:t.pl_deliv, start:deliv, end:deliv, dur:0, delivery:true});
+    var tl = document.getElementById('p-timeline'); tl.innerHTML = '';
+    events.forEach(function(ev) {
+      var div = document.createElement('div'); div.className = 'tl-item';
+      var col = document.createElement('div'); col.className = 'tl-left';
+      var dot = document.createElement('div'); dot.className = 'tl-dot'; if (ev.delivery) dot.style.background = 'var(--spring)';
+      var line = document.createElement('div'); line.className = 'tl-line';
+      col.appendChild(dot); col.appendChild(line);
+      var cont = document.createElement('div'); cont.className = 'tl-cont';
+      var de = document.createElement('div'); de.className = 'tl-date';
+      de.textContent = ev.dur > 0 ? fmtDate(ev.start) + ' \u2192 ' + fmtDate(ev.end) : fmtDate(ev.start);
+      var ph = document.createElement('div'); ph.className = 'tl-phase'; ph.textContent = ev.name;
+      var dd = document.createElement('div'); dd.className = 'tl-desc';
+      if (ev.kickoff) dd.textContent = t.pl_kick_d;
+      else if (ev.delivery) dd.textContent = t.pl_deliv_d;
+      else { var isSh = ev.dur === sd; dd.textContent = ev.dur + (isSh ? t.pl_shoot_d : t.pl_work_d); }
+      cont.appendChild(de); cont.appendChild(ph); cont.appendChild(dd);
+      div.appendChild(col); div.appendChild(cont); tl.appendChild(div);
+    });
+    document.getElementById('p-result').classList.add('on');
+  });
+}();
+
+// ── MOOD ACTIONS ────────────────────────────────────
+!function() {
+  document.getElementById('mood-dir-btn').addEventListener('click', function() {
+    var t = T[LANG];
+    if (moodSel.length === 0) { document.getElementById('mood-err').textContent = LANG === 'fr' ? 'S\u00e9lectionnez au moins une ambiance.' : 'Select at least one mood.'; document.getElementById('mood-err').classList.add('on'); return; }
+    document.getElementById('mood-err').classList.remove('on');
+    document.getElementById('mood-txt').textContent = moodSel.map(function(i) { return '[ ' + t.mood_names[i] + ' ]\n' + t.mood_dir[i]; }).join('\n\n');
+    document.getElementById('mood-result').classList.add('on');
+    document.getElementById('mood-result').scrollIntoView({behavior:'smooth',block:'nearest'});
+  });
+
+  document.getElementById('mood-ai-btn').addEventListener('click', async function() {
+    var t = T[LANG];
+    if (moodSel.length === 0) { document.getElementById('mood-err').textContent = LANG === 'fr' ? 'Sélectionnez au moins une ambiance.' : 'Select at least one mood.'; document.getElementById('mood-err').classList.add('on'); return; }
+    var key = LUMIA_KEY;
+    if (!key || key === '__LUMIA_KEY__') { document.getElementById('mood-err').textContent = LANG === 'fr' ? 'LUMIA n’est pas encore activée.' : 'LUMIA is not yet activated.'; document.getElementById('mood-err').classList.add('on'); return; }
+    var btn = document.getElementById('mood-dir-btn'); btn.classList.add('busy');
+    var moods = moodSel.map(function(i) { return t.mood_names[i]; }).join(', ');
+    var prompt = LANG === 'fr' ? 'Tu es directeur de la photographie de renom. Pour un projet aux ambiances : ' + moods + ', r\u00e9dige une direction visuelle compl\u00e8te en fran\u00e7ais (lumi\u00e8re, palette, optiques, \u00e9talonnage, r\u00e9f\u00e9rences). Texte propre, sans markdown.' : 'You are a renowned director of photography. For a project with moods: ' + moods + ', write a complete visual direction in English (light, palette, optics, colour grade, references). Clean text, no markdown.';
+    try {
+      var r = await fetch('https://api.anthropic.com/v1/messages', {method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-opus-4-5',max_tokens:800,messages:[{role:'user',content:prompt}]})});
+      if (!r.ok) throw new Error('API error ' + r.status);
+      var d = await r.json(); var tx = (d.content || []).find(function(b) { return b.type === 'text'; });
+      if (tx) { document.getElementById('mood-txt').textContent = tx.text; document.getElementById('mood-result').classList.add('on'); document.getElementById('mood-result').scrollIntoView({behavior:'smooth',block:'nearest'}); }
+    } catch(err) { alert('Error: ' + err.message); }
+    finally { btn.classList.remove('busy'); }
+  });
+}();
+
+// ── CONTACT SUBMIT — Formspree ──────────────────────
+!function() {
+  var btn = document.getElementById('ct-sub'); if (!btn) return;
+  btn.addEventListener('click', async function() {
+    var t = T[LANG];
+    var prenom = document.getElementById('c-prenom').value.trim();
+    var nom = document.getElementById('c-nom').value.trim();
+    var email = document.getElementById('c-email').value.trim();
+    var soc = document.getElementById('c-soc').value.trim();
+    var type = document.getElementById('c-type').value;
+    var msg = document.getElementById('c-msg').value.trim();
+    if (!prenom || !email || !msg) { btn.textContent = t.ct_sub_req; setTimeout(function() { btn.textContent = t.cf_btn; }, 2500); return; }
+    btn.classList.add('sending'); btn.textContent = LANG === 'fr' ? 'Envoi en cours…' : 'Sending…'; btn.disabled = true;
+    var endpoint = 'https://formspree.io/f/__FORMSPREE_CONTACT__';
+    try {
+      var r = await fetch(endpoint, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+        body: JSON.stringify({
+          nom: prenom + ' ' + nom, email: email, societe: soc,
+          type_projet: type, message: msg,
+          _subject: 'Nouveau brief — Spring Vision Studio',
+          _language: LANG
+        })
+      });
+      if (r.ok) {
+        btn.classList.remove('sending'); btn.classList.add('sent');
+        btn.textContent = t.ct_sub_ok; btn.disabled = true;
+        document.getElementById('c-prenom').value = '';
+        document.getElementById('c-nom').value = '';
+        document.getElementById('c-email').value = '';
+        document.getElementById('c-soc').value = '';
+        document.getElementById('c-msg').value = '';
+        setTimeout(function() { btn.classList.remove('sent'); btn.textContent = t.cf_btn; btn.disabled = false; }, 6000);
+      } else { throw new Error('HTTP ' + r.status); }
+    } catch(err) {
+      btn.classList.remove('sending'); btn.disabled = false;
+      btn.textContent = t.cf_btn;
+      var errMsg = LANG === 'fr' ? 'Erreur d’envoi. Écrivez directement à infos@springvision.studio' : 'Send error. Write directly to infos@springvision.studio';
+      alert(errMsg);
+    }
+  });
+}();
+
+// ── PREST SUBMIT — Formspree ────────────────────────
+!function() {
+  var btn = document.getElementById('pr-sub'); if (!btn) return;
+  btn.addEventListener('click', async function() {
+    var t = T[LANG];
+    var prenom = document.getElementById('pr-prenom').value.trim();
+    var nom = document.getElementById('pr-nom').value.trim();
+    var email = document.getElementById('pr-email').value.trim();
+    var role = document.getElementById('pr-role').value;
+    var exp = document.getElementById('pr-exp').value;
+    var link = document.getElementById('pr-link').value.trim();
+    var msg = document.getElementById('pr-msg').value.trim();
+    var fmts = Array.from(document.querySelectorAll('#pr-fmts .g-rb.sel')).map(function(b){return b.textContent}).join(', ');
+    if (!prenom || !email || !role || role === '') {
+      document.getElementById('pr-err').textContent = t.pr_sub_req;
+      document.getElementById('pr-err').classList.add('on'); return;
+    }
+    document.getElementById('pr-err').classList.remove('on');
+    btn.classList.add('sending'); btn.querySelector('.g-lbl2').textContent = LANG === 'fr' ? 'Envoi…' : 'Sending…'; btn.disabled = true;
+    var endpoint = 'https://formspree.io/f/__FORMSPREE_PREST__';
+    try {
+      var r = await fetch(endpoint, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+        body: JSON.stringify({
+          nom: prenom + ' ' + nom, email: email, metier: role,
+          experience: exp, formats: fmts, portfolio: link, message: msg,
+          _subject: 'Nouveau prestataire — Spring Vision Studio',
+          _language: LANG
+        })
+      });
+      if (r.ok) {
+        btn.classList.remove('sending'); btn.classList.add('sent');
+        btn.querySelector('.g-lbl2').textContent = t.pr_sub_ok; btn.disabled = true;
+        ['pr-prenom','pr-nom','pr-email','pr-link','pr-msg'].forEach(function(id){document.getElementById(id).value='';});
+        setTimeout(function() { btn.classList.remove('sent'); btn.querySelector('.g-lbl2').textContent = t.pr_btn; btn.disabled = false; }, 6000);
+      } else { throw new Error('HTTP ' + r.status); }
+    } catch(err) {
+      btn.classList.remove('sending'); btn.disabled = false;
+      btn.querySelector('.g-lbl2').textContent = t.pr_btn;
+      var errMsg = LANG === 'fr' ? 'Erreur. Réessayez ou écrivez à infos@springvision.studio' : 'Error. Retry or write to infos@springvision.studio';
+      alert(errMsg);
+    }
+  });
+}();
+
+// ── AI BRIEF ────────────────────────────────────────
+!function() {
+  var LUMIA_KEY = '__LUMIA_KEY__';
+  var btn = document.getElementById('ai-btn'); if (!btn) return;
+  btn.addEventListener('click', async function() {
+    var t = T[LANG];
+    var type = document.getElementById('ai-type').value;
+    var mood = document.getElementById('ai-mood').value;
+    var desc = document.getElementById('ai-desc').value.trim();
+    var refs = document.getElementById('ai-refs').value.trim();
+    var budget = document.getElementById('ai-budget').value;
+    var key = LUMIA_KEY;
+    var err = document.getElementById('ai-err'); var res = document.getElementById('ai-res');
+    err.classList.remove('on'); res.classList.remove('on');
+    if (!desc) { err.textContent = t.ai_err_desc; err.classList.add('on'); return; }
+    if (!type || type === '') { err.textContent = t.ai_err_type; err.classList.add('on'); return; }
+    if (!mood || mood === '') { err.textContent = t.ai_err_mood; err.classList.add('on'); return; }
+    if (!key || key === '__LUMIA_KEY__') {
+      err.textContent = LANG === 'fr' ? 'LUMIA n’est pas encore activée sur ce studio.' : 'LUMIA is not yet activated on this studio.';
+      err.classList.add('on'); return;
+    }
+    btn.classList.add('busy');
+    var proj = 'Type: ' + type + ' | Mood: ' + mood + ' | ' + desc + (refs ? ' | Refs: ' + refs : '') + (budget && budget !== '' ? ' | Budget: ' + budget : '');
+    var prompt = t.ai_prompt + '\n\nProject: ' + proj;
+    try {
+      var r = await fetch('https://api.anthropic.com/v1/messages', {method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-opus-4-5',max_tokens:1400,messages:[{role:'user',content:prompt}]})});
+      if (!r.ok) { var ed = await r.json().catch(function(){return{};});throw new Error(ed.error?ed.error.message:'Error '+r.status); }
+      var data = await r.json(); var tx = (data.content || []).find(function(b) { return b.type === 'text'; });
+      if (!tx || !tx.text) throw new Error('Empty response.');
+      document.getElementById('ai-res-txt').textContent = tx.text;
+      res.classList.add('on');
+      setTimeout(function() { res.scrollIntoView({behavior:'smooth',block:'nearest'}); }, 100);
+    } catch(e2) { err.textContent = 'Error: ' + e2.message; err.classList.add('on'); }
+    finally { btn.classList.remove('busy'); }
+  });
+}();
+
+// ── PLANNING DATE DEFAULT ────────────────────────────
+!function() {
+  var d = document.getElementById('p-delivery'); if (!d) return;
+  var t = new Date(); t.setDate(t.getDate() + 30);
+  d.min = t.toISOString().split('T')[0];
+  var def = new Date(t); def.setMonth(def.getMonth() + 6);
+  d.value = def.toISOString().split('T')[0];
+}();
+
+
+// ── RGPD BANNER ──────────────────────────────────────
+!function(){
+  var banner = document.getElementById('rgpd');
+  if(!banner) return;
+  if(!localStorage.getItem('svs-consent')){
+    setTimeout(function(){ banner.classList.add('show'); }, 1800);
+  }
+  document.getElementById('rgpd-ok').addEventListener('click', function(){
+    localStorage.setItem('svs-consent','1');
+    banner.classList.remove('show');
+  });
+  document.getElementById('rgpd-ko').addEventListener('click', function(){
+    localStorage.setItem('svs-consent','0');
+    banner.classList.remove('show');
+  });
+  document.getElementById('rgpd-legal-btn').addEventListener('click', function(){
+    document.getElementById('legal-modal').classList.add('open');
+    document.body.style.overflow='hidden';
+  });
+}();
+
+// ── LEGAL MODAL ───────────────────────────────────────
+!function(){
+  var modal = document.getElementById('legal-modal');
+  if(!modal) return;
+  document.getElementById('legal-close').addEventListener('click', function(){
+    modal.classList.remove('open');
+    document.body.style.overflow='';
+  });
+  modal.addEventListener('click', function(e){
+    if(e.target === modal){ modal.classList.remove('open'); document.body.style.overflow=''; }
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && modal.classList.contains('open')){ modal.classList.remove('open'); document.body.style.overflow=''; }
+  });
+  // Legal links in footer
+  document.querySelectorAll('a[href="legal"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      modal.classList.add('open');
+      document.body.style.overflow='hidden';
+    });
+  });
+  // Translate legal modal
+  var LG = {
+    fr: { title:'Mentions l\u00e9gales', close:'\u00d7 Fermer' },
+    en: { title:'Legal notice', close:'\u00d7 Close' }
+  };
+  document.getElementById('btn-fr').addEventListener('click', function(){
+    document.getElementById('legal-title').textContent = LG.fr.title;
+    document.getElementById('legal-close').textContent = LG.fr.close;
+    document.getElementById('rgpd-txt').childNodes[0].textContent = 'Ce site utilise des cookies techniques et des polices Google Fonts. Aucun cookie publicitaire. ';
+    document.getElementById('rgpd-ok').textContent = 'Accepter';
+    document.getElementById('rgpd-ko').textContent = 'Refuser';
+  });
+  document.getElementById('btn-en').addEventListener('click', function(){
+    document.getElementById('legal-title').textContent = LG.en.title;
+    document.getElementById('legal-close').textContent = LG.en.close;
+    document.getElementById('rgpd-txt').childNodes[0].textContent = 'This site uses technical cookies and Google Fonts. No advertising cookies. ';
+    document.getElementById('rgpd-ok').textContent = 'Accept';
+    document.getElementById('rgpd-ko').textContent = 'Decline';
+  });
+}();
+
+// ── INIT ─────────────────────────────────────────────
+applyLang(LANG);
+</script>
+
+<!-- LEGAL MODAL -->
+<div id="legal-modal" role="dialog" aria-modal="true" aria-label="Mentions légales">
+  <div class="legal-box">
+    <button class="legal-close" id="legal-close" type="button">&#215; Fermer</button>
+    <h2 class="legal-h1" id="legal-title">Mentions légales</h2>
+    <div id="legal-content">
+      <p class="legal-h2">&#201;diteur</p>
+      <p class="legal-p">Spring Vision Studio &mdash; Maison de production cinématographique<br>Paris, France<br>Email&nbsp;: infos@springvision.studio<br>Site&nbsp;: springvision.studio</p>
+      <p class="legal-h2">Hébergement</p>
+      <p class="legal-p">Ce site est hébergé par un prestataire tiers. Les coordonnées de l’hébergeur sont disponibles sur demande à infos@springvision.studio.</p>
+      <p class="legal-h2">Propriété intellectuelle</p>
+      <p class="legal-p">L’ensemble du contenu de ce site (textes, images, graphismes, logo, icônes, sons, logiciels&hellip;) est la propriété exclusive de Spring Vision Studio. Toute reproduction, distribution, modification ou utilisation de ces contenus, sous quelque forme que ce soit, sans l’autorisation écrite expresse de Spring Vision Studio, est strictement interdite.</p>
+      <p class="legal-h2">Données personnelles</p>
+      <p class="legal-p">Les informations collectées via les formulaires de ce site sont destinées exclusivement à Spring Vision Studio et ne sont jamais transmises à des tiers. Conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés, vous disposez d’un droit d’accès, de rectification et de suppression de vos données en écrivant à infos@springvision.studio.</p>
+      <p class="legal-h2">Cookies</p>
+      <p class="legal-p">Ce site utilise des cookies techniques strictement nécessaires à son fonctionnement (préférence de langue) et des polices d’écriture chargées depuis Google Fonts. Aucun cookie publicitaire ou de traçage n’est utilisé.</p>
+      <p class="legal-h2">Limitation de responsabilité</p>
+      <p class="legal-p">Spring Vision Studio s’efforce d’assurer l’exactitude et la mise à jour des informations diffusées sur ce site. Cependant, Spring Vision Studio ne peut garantir l’exactitude, la précision ou l’exhaustivité des informations mises à disposition et décline toute responsabilité pour toute imprécision ou omission.</p>
+    </div>
+  </div>
+</div>
+
+<!-- RGPD BANNER -->
+<div id="rgpd" role="complementary" aria-label="Politique cookies">
+  <p class="rgpd-txt" id="rgpd-txt">Ce site utilise des cookies techniques et des polices Google Fonts. Aucun cookie publicitaire. <button class="legal-trigger" id="rgpd-legal-btn" type="button">Mentions légales</button></p>
+  <div class="rgpd-btns">
+    <button class="rgpd-ok" id="rgpd-ok" type="button">Accepter</button>
+    <button class="rgpd-ko" id="rgpd-ko" type="button">Refuser</button>
+  </div>
+</div>
+</body>
+</html>
